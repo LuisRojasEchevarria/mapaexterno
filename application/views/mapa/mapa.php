@@ -158,6 +158,36 @@ $base_url = load_class('Config')->config['base_url'];
                     </table>
                 </div>
             </div>
+            <div id="div_listanohabi" class="listaipas">
+                <div id="div_tablalistanohabi" class="table-responsive" style="width: 100%;">
+                    <table id="tablalistanohabi" class="table-condensed" style="width: 100%;">
+                        <thead>
+                        </thead>
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="div_listanotra" class="listaipas">
+                <div id="div_tablalistanotra" class="table-responsive" style="width: 100%;">
+                    <table id="tablalistanotra" class="table-condensed" style="width: 100%;">
+                        <thead>
+                        </thead>
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="div_listanoope" class="listaipas">
+                <div id="div_tablalistanoope" class="table-responsive" style="width: 100%;">
+                    <table id="tablalistanoope" class="table-condensed" style="width: 100%;">
+                        <thead>
+                        </thead>
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div id="div_audio" class="audiodiv">
                 <audio id="audioplay" autoplay controls>
                 </audio>

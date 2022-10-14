@@ -244,6 +244,9 @@ var arrayipahabi = new Array();
 var arrayipatra = new Array();
 var arrayipatipo = new Array();
 var arrayipaope = new Array();
+var arrayipanohabi = new Array();
+var arrayipanotra = new Array();
+var arrayipanoope = new Array();
 
 function BorrarMarcador() {
     for(i=0;i<marcadorposicion.length;i++) {
@@ -271,6 +274,15 @@ function ResetArray(){
     }
     if(arrayipaope.length>0){
         arrayipaope.length = 0;
+    }
+    if(arrayipanohabi.length>0){
+        arrayipanohabi.length = 0;
+    }
+    if(arrayipanotra.length>0){
+        arrayipanotra.length = 0;
+    }
+    if(arrayipanoope.length>0){
+        arrayipanoope.length = 0;
     }
 }
 
@@ -304,22 +316,34 @@ function FiltrarIpas(mensaje){
                 CerrarHabi();
                 CerrarTra();
                 CerrarOpe();
+                CerrarNoHabi();
+                CerrarNoTra();
+                CerrarNoOpe();
                 var contipadepa = 0;
                 var contipatipo = 0;
                 var contipahabi = 0;
                 var contipatra = 0;
                 var contipaope = 0;
+                var contipanohabi = 0;
+                var contipanotra = 0;
+                var contipanoope = 0;
                 var numipas = 0;
                 var valipadepa = '';
                 var valipatipo = '';
                 var valipahabi = '';
                 var valipatra = '';
                 var valipaope = '';
+                var valipanohabi = '';
+                var valipanotra = '';
+                var valipanoope = '';
                 numipas = c.length;
                 var trtipo = '';
                 var trhabi = '';
                 var trtra = '';
                 var trope = '';
+                var trnohabi = '';
+                var trnotra = '';
+                var trnoope = '';
                 if(depa !='TODOS'){
                     contipadepa = c.length;
                     valipadepa = c[0].Departamento;
@@ -355,9 +379,13 @@ function FiltrarIpas(mensaje){
                     if(c[h].B_HAB == 1){ 
                         contipahabi++;
                         arrayipahabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
-                    }
+                    } else if (c[h].B_HAB == 0){ 
+                        contipanohabi++;
+                        arrayipanohabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
+                    } 
                 }
                 if(contipahabi>1){ valipahabi = 'Habilitados'; } else { valipahabi = 'Habilitado'; }
+                if(contipanohabi>1){ valipanohabi = 'No Habilitados'; } else { valipanohabi = 'No Habilitado'; }
                 if(contipahabi>0){
                     trhabi = '<tr>'+
                                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
@@ -367,13 +395,26 @@ function FiltrarIpas(mensaje){
                                 '</td>'+
                             '</tr>';
                 }
+                if(contipanohabi>0){
+                    trnohabi = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipanohabi+'</b> '+valipanohabi+' '+
+                                    '<button type="button" id="verlistanohabi" onclick="AbrirListaNoHabi(0);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
                 for(s=0; s<c.length; s++){
                     if(c[s].B_TRANS == 1){ 
                         contipatra++; 
                         arrayipatra.push([c[s].Infra_Nombre,c[s].Infra_Latitud,c[s].Infra_Longitud]);
+                    } else if(c[s].B_TRANS == 0){ 
+                        contipanotra++; 
+                        arrayipanotra.push([c[s].Infra_Nombre,c[s].Infra_Latitud,c[s].Infra_Longitud]);
                     }
                 }
                 if(contipatra>1){ valipatra = 'Transferidos'; } else { valipatra = 'Transferido'; }
+                if(contipanotra>1){ valipanotra = 'No Transferidos'; } else { valipanotra = 'No Transferido'; }
                 if(contipatra>0){
                     trtra = '<tr>'+
                                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
@@ -383,18 +424,40 @@ function FiltrarIpas(mensaje){
                                 '</td>'+
                             '</tr>';
                 }
+                if(contipanotra>0){
+                    trnotra = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipanotra+'</b> '+valipanotra+' '+
+                                    '<button type="button" id="verlistanotra" onclick="AbrirListaNoTra(0);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
                 for(o=0; o<c.length; o++){
                     if(c[o].I_EST == 1){ 
                         contipaope++;
                         arrayipaope.push([c[o].Infra_Nombre,c[o].Infra_Latitud,c[o].Infra_Longitud]);
+                    } else if(c[o].I_EST == 0){ 
+                        contipanoope++;
+                        arrayipanoope.push([c[o].Infra_Nombre,c[o].Infra_Latitud,c[o].Infra_Longitud]);
                     }
                 }
                 if(contipaope>1){ valipaope = 'Operativos'; } else { valipaope = 'Operativo'; }
+                if(contipanoope>1){ valipanoope = 'No Operativos'; } else { valipanoope = 'No Operativo'; }
                 if(contipaope>0){
                     trope = '<tr>'+
                                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
                                     '<b style="font-size: 22px;">'+contipaope+'</b> '+valipaope+' '+
                                     '<button type="button" id="verlistaope" onclick="AbrirListaOpe(1);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
+                if(contipanoope>0){
+                    trnoope = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipanoope+'</b> '+valipanoope+' '+
+                                    '<button type="button" id="verlistanoope" onclick="AbrirListaNoOpe(0);" style="background-color: transparent; border: none;">'+
                                     '<i class="fa-solid fa-eye"></i></button>'+
                                 '</td>'+
                             '</tr>';
@@ -415,16 +478,19 @@ function FiltrarIpas(mensaje){
                 $('#div_num_modificar').html(''+
                     '<table class="table-condensed" style="width: 100%;">'+
                         '<thead>'+
-                            '<th id="arrastrar_num" style="padding-left: 20px; padding-right: 10px; padding-bottom: 0px; background-color: #9fbf60; color: #16385C; width: 100%; border-radius: 15px 15px 0px 0px; text-align: left; font-size:30px;">'+
-                                '<button type="button" class="close" id="btn_cerrar_numflotante" onclick="CerrarNum();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
-                                '<b style="font-size: 65px; line-height: 70px;">'+ numipas +'</b> IPAS <a href="#" type="button" id="vernombredepa" onClick="AbrirListaDepa();" style="color: #16385C !important;">'+ valipadepa +'</a>'+
+                            '<th id="arrastrar_num" style="padding-left: 20px; padding-right: 10px; padding-bottom: 0px; background-color: #9fbf60; color: #16385C; width: 100%; border-radius: 15px 15px 0px 0px; text-align: left; font-size:20px;">'+
+                                '<button type="button" class="close" id="btn_cerrar_numflotante" onclick="CerrarNum();" style="color: black;font-weight: bold;font-size: 18px;">&times;</button>'+
+                                '<b style="font-size: 55px; line-height: 70px;">'+ numipas +'</b> DPA <a href="#" type="button" id="vernombredepa" onClick="AbrirListaDepa();" style="color: #16385C !important;">'+ valipadepa +'</a>'+
                             '</th>'+
                         '</thead>'+
-                        '<tbody>'+
+                        '<tbody class="table-wrapper-scroll-y my-custom-scrollbar">'+
                             ''+ trtipo + ''+
                             ''+ trhabi + ''+
+                            ''+ trnohabi + ''+
                             ''+ trtra + ''+
+                            ''+ trnotra + ''+
                             ''+ trope + ''+
+                            ''+ trnoope + ''+
                         '</tbody>'+
                     '</table>'+
                 '');
@@ -435,7 +501,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistadepa tbody').html('');
                 if(depa !='TODOS'){
                     $('#tablalistadepa thead').append(''+
-                        '<th id="arrastrar_depa" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">IPAS EN '+ valipadepa +''+
+                        '<th id="arrastrar_depa" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA EN '+ valipadepa +''+
                             '<button type="button" class="close" id="btn_cerrar_div_listadepa" onclick="CerrarDepa();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                         '</th>'+
                     '');
@@ -466,7 +532,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistahabi thead').html('');
                 $('#tablalistahabi tbody').html('');
                 $('#tablalistahabi thead').append(''+
-                    '<th id="arrastrar_habi" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">IPAS HABILITADOS'+
+                    '<th id="arrastrar_habi" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listahabi" onclick="CerrarHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -480,7 +546,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistatra thead').html('');
                 $('#tablalistatra tbody').html('');
                 $('#tablalistatra thead').append(''+
-                    '<th id="arrastrar_tra" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">IPAS TRANSFERIDOS'+
+                    '<th id="arrastrar_tra" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA TRANSFERIDOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listatra" onclick="CerrarTra();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -494,7 +560,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistaope thead').html('');
                 $('#tablalistaope tbody').html('');
                 $('#tablalistaope thead').append(''+
-                    '<th id="arrastrar_ope" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">IPAS OPERATIVOS'+
+                    '<th id="arrastrar_ope" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA OPERATIVOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listaope" onclick="CerrarOpe();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -502,6 +568,48 @@ function FiltrarIpas(mensaje){
                     $('#tablalistaope tbody').append(''+
                         '<tr>'+
                             '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipaope[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipaope[nd][1]+','+arrayipaope[nd][2]+');"></i></td>'+
+                        '</tr>'+
+                    '');
+                }
+                $('#tablalistanohabi thead').html('');
+                $('#tablalistanohabi tbody').html('');
+                $('#tablalistanohabi thead').append(''+
+                    '<th id="arrastrar_habi" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listanohabi" onclick="CerrarNoHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                    '</th>'+
+                '');
+                for(nd=0; nd<arrayipanohabi.length; nd++){
+                    $('#tablalistanohabi tbody').append(''+
+                        '<tr>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanohabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanohabi[nd][1]+','+arrayipanohabi[nd][2]+');"></i></td>'+
+                        '</tr>'+
+                    '');
+                }
+                $('#tablalistanotra thead').html('');
+                $('#tablalistanotra tbody').html('');
+                $('#tablalistanotra thead').append(''+
+                    '<th id="arrastrar_tra" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO TRANSFERIDOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listanotra" onclick="CerrarNoTra();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                    '</th>'+
+                '');
+                for(nd=0; nd<arrayipanotra.length; nd++){
+                    $('#tablalistanotra tbody').append(''+
+                        '<tr>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanotra[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanotra[nd][1]+','+arrayipanotra[nd][2]+');"></i></td>'+
+                        '</tr>'+
+                    '');
+                }
+                $('#tablalistanoope thead').html('');
+                $('#tablalistanoope tbody').html('');
+                $('#tablalistanoope thead').append(''+
+                    '<th id="arrastrar_ope" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO OPERATIVOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listanoope" onclick="CerrarNoOpe();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                    '</th>'+
+                '');
+                for(nd=0; nd<arrayipanoope.length; nd++){
+                    $('#tablalistanoope tbody').append(''+
+                        '<tr>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanoope[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanoope[nd][1]+','+arrayipanoope[nd][2]+');"></i></td>'+
                         '</tr>'+
                     '');
                 }
@@ -608,6 +716,9 @@ function AbrirListaDepa(){
     document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
 }
 function CerrarTipo(){
@@ -624,6 +735,9 @@ function AbrirListaTipo(DPA){
     document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,tip,ha,ta,op);
 }
@@ -641,6 +755,9 @@ function AbrirListaHabi(ha){
     document.getElementById("div_listatipo").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,ti,hab,ta,op);
 }
@@ -658,6 +775,9 @@ function AbrirListaTra(ta){
     document.getElementById("div_listatipo").style.display = "none";
     document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,ti,ha,tas,op);
 }
@@ -675,6 +795,70 @@ function AbrirListaOpe(op){
     document.getElementById("div_listatipo").style.display = "none";
     document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
+    document.getElementById("div_audio").style.display = "none";
+    MostrarIpasLista(de,ti,ha,ta,opr);
+}
+
+function CerrarNoHabi(){
+    document.getElementById("div_listanohabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+}
+function AbrirListaNoHabi(ha){
+    var de = $('#filtro_depa').val();
+    var ti = $('#filtro_tipo').val();
+    var hab = ha;
+    var ta = $('#filtro_trans').val();
+    var op = $('#filtro_ope').val();
+    document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listadepa").style.display = "none";
+    document.getElementById("div_listatipo").style.display = "none";
+    document.getElementById("div_listatra").style.display = "none";
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "block";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
+    document.getElementById("div_audio").style.display = "none";
+    MostrarIpasLista(de,ti,hab,ta,op);
+}
+function CerrarNoTra(){
+    document.getElementById("div_listanotra").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+}
+function AbrirListaNoTra(ta){
+    var de = $('#filtro_depa').val();
+    var ti = $('#filtro_tipo').val();
+    var ha = $('#filtro_hab').val();
+    var tas = ta;
+    var op = $('#filtro_ope').val();
+    document.getElementById("div_listatra").style.display = "none";
+    document.getElementById("div_listadepa").style.display = "none";
+    document.getElementById("div_listatipo").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "block";
+    document.getElementById("div_listanoope").style.display = "none";
+    document.getElementById("div_audio").style.display = "none";
+    MostrarIpasLista(de,ti,ha,tas,op);
+}
+function CerrarNoOpe(){
+    document.getElementById("div_listanoope").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+}
+function AbrirListaNoOpe(op){
+    var de = $('#filtro_depa').val();
+    var ti = $('#filtro_tipo').val();
+    var ha = $('#filtro_hab').val();
+    var ta = $('#filtro_trans').val();
+    var opr = op;
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listadepa").style.display = "none";
+    document.getElementById("div_listatipo").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listatra").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "block";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,ti,ha,ta,opr);
 }
@@ -1146,6 +1330,15 @@ $('#div_listatra').click(function(){
     dragElement(this);
 });
 $('#div_listaope').click(function(){
+    dragElement(this);
+});
+$('#div_listanohabi').click(function(){
+    dragElement(this);
+});
+$('#div_listanotra').click(function(){
+    dragElement(this);
+});
+$('#div_listanoope').click(function(){
     dragElement(this);
 });
 function dragElement(elmnt) {
