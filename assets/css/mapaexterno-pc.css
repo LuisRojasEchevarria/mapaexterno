@@ -103,3 +103,7 @@ li a:hover:not(.active) {
 .table-wrapper-scroll-y {
   display: block;
 }
+
+.highcharts-tooltip{
+  visibility: hidden !important;
+}

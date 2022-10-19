@@ -4,6 +4,7 @@ class Mapa extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('M_mapainteractivo');
+        $this->load->model('M_indicador');
         date_default_timezone_set("America/Lima");
     }
 
@@ -14,6 +15,8 @@ class Mapa extends CI_Controller {
 
     //Funciones Iniciales************************************************************************************
     public function index(){
+        $contador = $this->M_indicador->operacion('buscar_cantidad','');
+        $data['fila'] = $contador;
         $ipaData = $this->M_mapainteractivo->operacion('todoipashabilitados','','');
         $data['ipa_data'] = $this->encodeURIComponent(json_encode($ipaData));
         echo $this->load->view('mapa/mapa', $data, true);
@@ -52,17 +55,32 @@ class Mapa extends CI_Controller {
     public function buscarxid() {
         $data = array(
             'id'=>$this->input->post('id', TRUE),
-        );                
+        );
+        //--- INDICADOR
+        $data_indicador = array(
+            'Infra_Id' => intval($this->input->post('id', TRUE)),
+            'V_ORIGEN' => 'EXTERNO',
+            'V_TIPO' => 'IPA',
+            'V_FILTRO' => 'ID',
+            'V_LATITUD' => $this->input->post('latitud', TRUE),
+            'V_LONGITUD' => $this->input->post('longitud', TRUE),
+            'V_IP_REG' => $this->input->ip_address(),
+        );
+
+        $this->M_indicador->operacion('nuevo', $data_indicador);
+        //---        
         $dataipa = $this->M_mapainteractivo->operacion('buscarxid',$data,'');
         echo json_encode($dataipa);    
     }
    
     public function ipasxfiltro() {
+
         $data = array(
             'depa'=>$this->input->post('depa', TRUE),
             'tipo'=>$this->input->post('tipo', TRUE),
             'nombre'=>$this->input->post('nombre', TRUE),
-        );                
+        );   
+
         $dataipa = $this->M_mapainteractivo->operacion('ipasxfiltro',$data,'');
         echo json_encode($dataipa);    
     }

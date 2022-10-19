@@ -63,7 +63,9 @@ $base_url = load_class('Config')->config['base_url'];
     <div class="wrapper">
         <!-- Header principal -->
         <header class="main-header" style="background: #3c8dbc; height: 53.39px !important; vertical-align: middle;">
-            <h2 style="text-align: center !important; color: white; margin: 0px; padding-top: 10px;"><b>DESEMBARCADEROS PESQUEROS ARTESANALES</b></h2>
+            <h2 style="text-align: center !important; color: white; margin: 0px; padding-top: 10px;"><b>DESEMBARCADEROS PESQUEROS ARTESANALES <?php echo ' - CANTIDAD DE VISITAS : ' . str_pad($fila->cantidad,5,"0",STR_PAD_LEFT); ?></b></h2>
+            <input id="latitud" name="latitud" type="hidden"  value="">
+            <input id="longitud" name="longitud" type="hidden"  value="">
         </header>
         <section id="seccion_mapa" class="content col-lg-12" style="background-color: white; height: 100vh; position:absotule;">
             <!-- <div class="col-lg-2"></div> -->
@@ -201,16 +203,16 @@ $base_url = load_class('Config')->config['base_url'];
                 <div id="datos_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: #d9d9d9; border-radius: 15px;">
                     <label class="control-label" style="text-align: left;">RESUMEN DE INFORMACIÓN</label>
                 </div>
-                <table class="table-condensed" style="margin-left: 5px;">
-                    <thead>
-                        <th style="background-color: #16385C; color: #ffffff; width: 580px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">INFORMACIÓN ESTADÍSTICA</th>
-                    </thead>
-                </table> -
-                <div id="estadistica_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: white; border-radius: 0px 0px 15px 15px;">
-                    <label class="control-label" style="text-align: left;">ESTADÍSTICA</label>
-                </div>
                 <div id="multimedia_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: #d9d9d9; border-radius: 15px;">
                     <label class="control-label" style="text-align: left;">ARCHIVOS MULTIMEDIA</label>
+                </div>
+                <table class="table-condensed" style="margin-left: 5px;">
+                    <thead>
+                        <th style="background-color: #16385C; color: #ffffff; width: 580px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">ESTADO</th>
+                    </thead>
+                </table>
+                <div id="estadistica_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: white; border-radius: 0px 0px 15px 15px;">
+                    <label class="control-label" style="text-align: left;">ESTADÍSTICA</label>
                 </div>
             </div>
         </div>     
@@ -316,5 +318,17 @@ $base_url = load_class('Config')->config['base_url'];
         $('#divmapa-loading').show();
         initMap();
     }, 1500);
+
+
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition);
+        }
+
+    function showPosition(position){
+        latitud=position.coords.latitude;
+        longitud=position.coords.longitude;
+        document.getElementById("latitud").value = latitud;
+        document.getElementById("longitud").value = longitud;
+    }
 </script>
 </html>

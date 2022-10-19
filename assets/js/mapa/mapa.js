@@ -695,7 +695,7 @@ function FocusMarker(lat,lon){
 }
 
 function CerrarDivDatos(){
-    document.getElementById("seccion_cards").style.cssText = "position: absolute;top: 115px;right: 15px;width: 640px;display: none;transition: right 0.5s; z-index: 1997;padding-left: 0px;padding-right: 0px;height: 630px;overflow-y: auto;";
+    document.getElementById("seccion_cards").style.cssText = "position: absolute;top: 115px;right: 15px;width: 640px;display: none;transition: right 0.5s; z-index: 1997;padding-left: 0px;padding-right: 0px;height: 510px;overflow-y: auto;";
     document.getElementById("div_audio").style.cssText = "position: absolute; top: 570px; left: 350px; width: auto; height: auto; display: none; z-index: 1997; padding: 0px; background-color: transparent;";
     $('#div_audio').html('');
 }
@@ -882,11 +882,16 @@ function AbrirListaNoOpe(op){
 function markerOnClick(e, id)
 {
     // console.log(id);
+    var x = document.getElementById("latitud").value;
+    var y = document.getElementById("longitud").value;
+
     $.ajax({
         url: window.base_url + 'mapa/buscarxid',
         type:'post',
         data: {
-            id: id
+            id: id,
+            latitud:x,
+            longitud:y
         },
         beforeSend: function(e){
             // console.log(e);
@@ -907,9 +912,9 @@ function markerOnClick(e, id)
             var xno = 'color: red; font-size: 16px;';
             var ihcond = '';
             var habdet = '';
-            var po = 0;
-            var pno = 0;
-            var pp = 0;
+            var valestado = 0;
+            var textestado = '';
+            var colorestado ='';
             if(valor.B_HAB == '1'){
                 ihcond = '<i class="glyphicon glyphicon-ok-circle" style="'+ xsi +'"></i>';
             } else if(valor.B_HAB == '0'){
@@ -930,22 +935,30 @@ function markerOnClick(e, id)
             }
             var estcon = '';
             if(valor.I_EST == '1'){
-                estcon = '<i class="fa fa-circle" style="color: #82B64C;"></i> OPERATIVO';
-                po = 100;
-                pno=0;
-                pp=0;
+                estcon = '<i class="fa fa-circle" style="color: #68b64c;"></i> OPERATIVO';
+                valestado = valor.I_EST;
+                textestado = 'Operativo';
+                colorestado = '#68b64c';
             } else if(valor.I_EST == '0'){
                 estcon = '<i class="fa fa-circle" style="color: #FF0000;"></i> NO OPERATIVO';
-                po = 0;
-                pno=100;
-                pp=0;
-            } else if(valor.I_EST == '2'){
+                valestado = valor.I_EST;
+                textestado = 'No Operativo';
+                colorestado = '#FF0000';
+            } else if(valor.I_EST == '3'){
                 estcon = '<i class="fa fa-circle" style="color: #FFC000;"></i> PARCIALMENTE OPERATIVO';
-                po = 0;
-                pno=50;
-                pp=50;
+                valestado = valor.I_EST;
+                textestado = 'Parcialmente Operativo';
+                colorestado = '#FFC000';
+            } else if(valor.I_EST == '4'){
+                estcon = '<i class="fa fa-circle" style="color: #00EAFF;"></i> NUEVO PROYECTO';
+                valestado = valor.I_EST;
+                textestado = 'Nuevo Proyecto';
+                colorestado = '#00EAFF';
             } else {
                 estcon = 'SIN DATOS';
+                valestado = valor.I_EST;
+                textestado = 'Sin Datos';
+                colorestado = '#FFFFFF';
             }
             var vfase = '';
             if(valor.I_FASE == '0'){
@@ -966,22 +979,10 @@ function markerOnClick(e, id)
             if(valor.Departamento=='' || valor.Departamento==null || valor.Departamento==undefined){valor.Departamento='';}
             if(valor.Provincia=='' || valor.Provincia==null || valor.Provincia==undefined){valor.Provincia='';}
             if(valor.Distrito=='' || valor.Distrito==null || valor.Distrito==undefined){valor.Distrito='';}
-            if(valor.N_DIST_NOR_TIE=='' || valor.N_DIST_NOR_TIE==null || valor.N_DIST_NOR_TIE==undefined){valor.N_DIST_NOR_TIE='-';}
-            if(valor.N_DIST_NOR_MAR=='' || valor.N_DIST_NOR_MAR==null || valor.N_DIST_NOR_MAR==undefined){valor.N_DIST_NOR_MAR='-';}
-            if(valor.NomInfNor=='' || valor.NomInfNor==null || valor.NomInfNor==undefined){valor.NomInfNor='-'; valor.N_DIST_NOR_TIE='-'; valor.N_DIST_NOR_MAR='-';}
-            if(valor.N_DIST_SUR_TIE=='' || valor.N_DIST_SUR_TIE==null || valor.N_DIST_SUR_TIE==undefined){valor.N_DIST_SUR_TIE='-';}
-            if(valor.N_DIST_SUR_MAR=='' || valor.N_DIST_SUR_MAR==null || valor.N_DIST_SUR_MAR==undefined){valor.N_DIST_SUR_MAR='-';}
-            if(valor.NomInfSur=='' || valor.NomInfSur==null || valor.NomInfSur==undefined){valor.NomInfSur='-'; valor.N_DIST_SUR_TIE='-'; valor.N_DIST_SUR_MAR='-';}
-            if(valor.B_TRANS_DET=='' || valor.B_TRANS_DET==null || valor.B_TRANS_DET==undefined){valor.B_TRANS_DET='-';}
-            if(valor.V_DISPOSITIVO_LEGAL=='' || valor.V_DISPOSITIVO_LEGAL==null || valor.V_DISPOSITIVO_LEGAL==undefined){valor.V_DISPOSITIVO_LEGAL='-';}
-            if(valor.V_RECURSO_HIDROBIOLOGICO=='' || valor.V_RECURSO_HIDROBIOLOGICO==null || valor.V_RECURSO_HIDROBIOLOGICO==undefined){valor.V_RECURSO_HIDROBIOLOGICO='-';}
-            if(valor.I_NUM_PESC=='' || valor.I_NUM_PESC==null || valor.I_NUM_PESC==undefined){valor.I_NUM_PESC='0';}
-            if(valor.I_NUM_FAM=='' || valor.I_NUM_FAM==null || valor.I_NUM_FAM==undefined){valor.I_NUM_FAM='0';}
-            if(valor.I_NUM_EMB=='' || valor.I_NUM_EMB==null || valor.I_NUM_EMB==undefined){valor.I_NUM_EMB='0';}
-            if(valor.N_VOL_DES=='' || valor.N_VOL_DES==null || valor.N_VOL_DES==undefined){valor.N_VOL_DES='-';}
-            if(valor.V_MES_PICO=='' || valor.V_MES_PICO==null || valor.V_MES_PICO==undefined){valor.V_MES_PICO='-';}
-            if(valor.N_PORCT_REAL=='' || valor.N_PORCT_REAL==null || valor.N_PORCT_REAL==undefined){valor.N_PORCT_REAL=0;}
-            // if(valor.Infra_Nombre=='' || valor.Infra_Nombre==null || valor.Infra_Nombre==undefined){valor.Infra_Nombre='';}
+            if(valor.B_TRANS_DET=='' || valor.B_TRANS_DET=='-' || valor.B_TRANS_DET==null || valor.B_TRANS_DET==undefined){
+                valor.B_TRANS_DET='';} else { valor.B_TRANS_DET='<br>'+valor.B_TRANS_DET;}
+            if(valor.V_DISPOSITIVO_LEGAL=='' || valor.V_DISPOSITIVO_LEGAL=='-' || valor.V_DISPOSITIVO_LEGAL==null || valor.V_DISPOSITIVO_LEGAL==undefined){
+                valor.V_DISPOSITIVO_LEGAL='';} else { valor.V_DISPOSITIVO_LEGAL='<br>'+valor.V_DISPOSITIVO_LEGAL;}
             var tipo_mostrar = '';
             switch (valor.Infra_Tipo) {    
                 case 'AFA':
@@ -1032,17 +1033,17 @@ function markerOnClick(e, id)
                                 '<th style="'+ th +' '+ xsr +' '+ pl10 +'">UBICACIÓN:</th>'+
                                 '<td style="'+ td +' '+ xsl +'" colspan="6">'+ valor.Departamento +' - '+ valor.Provincia +' - '+ valor.Distrito +'</td>'+
                             '</tr>'+
-                            '<tr>'+
-                                '<th style="'+ th +' '+ xsr +' '+ pl10 +'">HABILITADO:</th>'+
-                                '<td style="'+ td +' '+ xsl +'" colspan="6">'+ ihcond +' '+ habdet +'</td>'+
-                            '</tr>'+
+                            // '<tr>'+
+                            //     '<th style="'+ th +' '+ xsr +' '+ pl10 +'">HABILITADO:</th>'+
+                            //     '<td style="'+ td +' '+ xsl +'" colspan="6">'+ ihcond +' '+ habdet +'</td>'+
+                            // '</tr>'+
                             // '<tr>'+
                             //     '<th style="'+ th +' '+ xsr +' '+ pl10 +'">TRANSFERIDO:</th>'+
                             //     '<td style="'+ td +' '+ xsl +'" colspan="6">'+ itcond +' '+ valor.B_TRANS_DET +'</td>'+
                             // '</tr>'+
                             '<tr>'+
                                 '<th style="'+ th +' '+ xsr +' '+ pl10 +'">ESTADO:</th>'+
-                                '<td style="'+ td +' '+ xsl +'" colspan="6">'+ estcon +' - '+ itcond +' - '+ valor.V_DISPOSITIVO_LEGAL +'</td>'+
+                                '<td style="'+ td +' '+ xsl +'" colspan="6">'+ estcon +' <br>'+ itcond +''+ valor.V_DISPOSITIVO_LEGAL +'</td>'+
                             '</tr>'+
                             // '<tr>'+
                             //     '<th style="'+ th +' '+ xsr +' '+ pl10 +'">FASE:</th>'+
@@ -1055,23 +1056,11 @@ function markerOnClick(e, id)
 
             $('#estadistica_ipa').html('');
             $('#estadistica_ipa').html(''+
-                '<div id="containercircle" style="width: 550px; height: 350px; margin: 0 auto; text align: center;">'+
+                '<div id="containercircle" style="width: 550px; height: 280px; margin: 0 auto; text align: center;">'+
                 '</div>'+
                 // '<div id="containergraf" style="width: 550px; height: 400px; margin: 0 auto;">'+
                 // '</div>'+
             '');
-
-            // var mi = parseFloat(valor.Monto_Inv);
-            // var ca = parseFloat(valor.Costo_Apro);
-            // var da = parseFloat(valor.Dev_Acum);
-            // var pp = 0;
-            // var restaplan = (100 - pp);
-            // var pr = parseFloat(valor.N_PORCT_REAL);
-            // var restareal = (100 - pr);
-            // if(pr == 0){
-            //     pp = 60;
-            //     restareal = (100 - pp);
-            // }
 
             Highcharts.chart('containercircle', {
                 title: {
@@ -1091,20 +1080,10 @@ function markerOnClick(e, id)
                 },
                 labels: {
                     items: [{
-                    //     html: '<b>% Planificado</b>',
-                    //     style: {
-                    //         left: '130px',
-                    //         top: '18px',
-                    //         color: ( // theme
-                    //             Highcharts.defaultOptions.title.style &&
-                    //             Highcharts.defaultOptions.title.style.color
-                    //         ) || 'black'
-                    //     }
-                    // },{
                         html: '',//'<b>% Avance</b>',
                         style: {
-                            left: '250px',
-                            top: '18px',
+                            left: '150px',
+                            top: '50px',
                             color: ( // theme
                                 Highcharts.defaultOptions.title.style &&
                                 Highcharts.defaultOptions.title.style.color
@@ -1113,16 +1092,16 @@ function markerOnClick(e, id)
                     }]
                 },
                 colors: 
-                    //verde, rojo
-                    ['#82B64C', '#FFC000', '#FF0000']
+                    //verde, rojo, ambar, celeste
+                    [colorestado]
                 ,
                 plotOptions: {
                     pie: {
                         layout: 'vertical',
                         align: 'left',
                         verticalAlign: 'top',
-                        allowPointSelect: true,
-                        cursor: 'pointer',
+                        allowPointSelect: false,
+                        cursor: false,
                         dataLabels: {
                             enabled: false
                         },
@@ -1130,52 +1109,26 @@ function markerOnClick(e, id)
                     }
                 },            
                 series: [{
-                //     type: 'pie',
-                //     name: '%',
-                //     innerSize: '50%',
-                //     startAngle: -90,
-                //     endAngle: 90,
-                //     size: 100,
-                //     center: [160, 100],
-                //     data: [
-                //         ['Planificado', pp],
-                //         {
-                //             name: 'Restante',
-                //             y: restaplan,
-                //             showInLegend: false,
-                //             dataLabels: {
-                //                 enabled: false
-                //             }
-                //         }
-                //     ]
-                // }, {
                     type: 'pie',
-                    name: '%',
+                    name: '',
                     innerSize: '50%',
                     startAngle: 0,
                     endAngle: 360,
                     size: 180,
-                    center: [250, 80],
+                    center: [150, 80],
                     data: [
-                        ['Operativo: '+po+'%', po],
-                        ['Remodelación por administración actual: '+pp+'%', pp],
-                        {
-                            name: 'No Operativo',
-                            y: pno,
-                            showInLegend: true,
-                            dataLabels: {
-                                enabled: false
-                            }
-                        }
+                        [textestado,100]
                     ]
                 }]
             });
+
+            $('.highcharts-legend').attr('transform','translate(300,80)');
             
             $('#multimedia_ipa').html('');
             $('#multimedia_ipa').html(''+
                 '<table class="table-condensed">'+
                     '<thead>'+
-                        '<th style="background-color: #16385C; color: #ffffff; width: 685px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">FOTOGRAFÍAS</th>'+
+                        '<th style="background-color: #16385C; color: #ffffff; width: 685px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">INFOGRAFÍA</th>'+
                     '</thead>'+
                 '</table>'+
                 '<div class="container" style="width: 100%;">'+
@@ -1270,12 +1223,12 @@ function markerOnClick(e, id)
                         if( c > 0){
                             var tarchi = c;
                             // console.log(tarchi);
-                            $('#div_audio').html('<audio id="audioplay" muted></audio>');
+                            $('#div_audio').html('<audio id="audioplay"></audio>');
                             $("#audioplay").html('');
                             $("#audioplay").html(''+
-                            //     '<source src="' +urldocumento+ 'SIMON/Mapas_Audios_Externos/' +nombreipabuscar+ '/audio/audio0.mp3" type="audio/mp3">'+
-                            //     '<source src="' +urldocumento+ 'SIMON/Mapas_Audios_Externos/' +nombreipabuscar+ '/audio/audio0.wav" type="audio/wav">'+
-                                '<source src="' +urldocumento+ 'SIMON/Mapas_Audios_Externos/' +nombreipabuscar+ '/audio/audio0.ogg" type="audio/ogg">'+
+                                '<source src="' +urldocumento+ 'SIMON/Mapas_Audios_Externos/' +nombreipabuscar+ '/audio/audio0.mp3" type="audio/mp3">'+
+                                // '<source src="' +urldocumento+ 'SIMON/Mapas_Audios_Externos/' +nombreipabuscar+ '/audio/audio0.wav" type="audio/wav">'+
+                                // '<source src="' +urldocumento+ 'SIMON/Mapas_Audios_Externos/' +nombreipabuscar+ '/audio/audio0.ogg" type="audio/ogg">'+
                             '');
                             document.getElementById("div_audio").style.display = "block";
                             $("#audioplay").attr("load","load");
