@@ -131,7 +131,7 @@ $base_url = load_class('Config')->config['base_url'];
                     </table>
                 </div>
             </div>
-            <div id="div_listahabi" class="listaipas">
+            <!-- <div id="div_listahabi" class="listaipas">
                 <div id="div_tablalistahabi" class="table-responsive" style="width: 100%;">
                     <table id="tablalistahabi" class="table-condensed" style="width: 100%;">
                         <thead>
@@ -140,7 +140,7 @@ $base_url = load_class('Config')->config['base_url'];
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
             <div id="div_listatra" class="listaipas">
                 <div id="div_tablalistatra" class="table-responsive" style="width: 100%;">
                     <table id="tablalistatra" class="table-condensed" style="width: 100%;">
@@ -161,7 +161,27 @@ $base_url = load_class('Config')->config['base_url'];
                     </table>
                 </div>
             </div>
-            <div id="div_listanohabi" class="listaipas">
+            <div id="div_listaparope" class="listaipas">
+                <div id="div_tablalistaparope" class="table-responsive" style="width: 100%;">
+                    <table id="tablalistaparope" class="table-condensed" style="width: 100%;">
+                        <thead>
+                        </thead>
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="div_listanpro" class="listaipas">
+                <div id="div_tablalistanpro" class="table-responsive" style="width: 100%;">
+                    <table id="tablalistanpro" class="table-condensed" style="width: 100%;">
+                        <thead>
+                        </thead>
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- <div id="div_listanohabi" class="listaipas">
                 <div id="div_tablalistanohabi" class="table-responsive" style="width: 100%;">
                     <table id="tablalistanohabi" class="table-condensed" style="width: 100%;">
                         <thead>
@@ -170,7 +190,7 @@ $base_url = load_class('Config')->config['base_url'];
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
             <div id="div_listanotra" class="listaipas">
                 <div id="div_tablalistanotra" class="table-responsive" style="width: 100%;">
                     <table id="tablalistanotra" class="table-condensed" style="width: 100%;">

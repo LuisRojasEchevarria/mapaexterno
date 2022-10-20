@@ -112,9 +112,13 @@ $('#btn_limpiarfiltro_mapa').click(function(){
 document.getElementById("div_numflotante").style.display = "none";
 document.getElementById("div_listadepa").style.display = "none";
 document.getElementById("div_listatipo").style.display = "none";
-document.getElementById("div_listahabi").style.display = "none";
+// document.getElementById("div_listahabi").style.display = "none";
 document.getElementById("div_listatra").style.display = "none";
 document.getElementById("div_listaope").style.display = "none";
+document.getElementById("div_listanoope").style.display = "none";
+document.getElementById("div_listaparope").style.display = "none";
+document.getElementById("div_listanpro").style.display = "none";
+document.getElementById("div_listanotra").style.display = "none";
 document.getElementById("div_audio").style.display = "none";
 $('#btn_cerrar_numflotante').click(function(){
     document.getElementById("div_numflotante").style.display = "none";
@@ -200,6 +204,8 @@ function initMap(){
 
 }
 
+
+
 function iniMarcadores(){
     $.ajax({
         url: window.base_url + 'mapa/ipas',
@@ -215,12 +221,11 @@ function iniMarcadores(){
             c.forEach(function(valor,indice,array){
                 // console.log(valor);
                 var GrupoMarcador = new L.marker([valor.Infra_Latitud,valor.Infra_Longitud])
-                    .bindPopup('<a href="#"><span><h4 style="text-align: center;"><b>'+valor.Infra_Nombre+'</b></h4></span></a><span><h2 style="font-size: 14px; text-align: center;">'+valor.Departamento+' - '+valor.Provincia+' - '+valor.Distrito+'</h2></span>')
+                    .bindPopup('<a href="#"><span><h4 style="text-align: center;" onclick="markerOnClick('+valor.Infra_Id+');"><b>'+valor.Infra_Nombre+'</b></h4></span></a><span><h2 style="font-size: 14px; text-align: center;">'+valor.Departamento+' - '+valor.Provincia+' - '+valor.Distrito+'</h2></span>')
                     // .setIcon(greenIcon)
-                    .on('click', function(e) { markerOnClick(e, valor.Infra_Id); })
+                    .on('click', function(e) { markerOnClick(valor.Infra_Id); })
                     .on('mouseover', function(ev) { ev.target.openPopup(); });
                     marcadorposicion.push(GrupoMarcador);
-                    
             });
             for(i=0; i<marcadorposicion.length; i++){
                 map.addLayer(marcadorposicion[i]);
@@ -240,11 +245,13 @@ function iniMarcadores(){
 
 var marcadorposicion = new Array();
 var arrayipadepa = new Array();
-var arrayipahabi = new Array();
+// var arrayipahabi = new Array();
 var arrayipatra = new Array();
 var arrayipatipo = new Array();
 var arrayipaope = new Array();
-var arrayipanohabi = new Array();
+var arrayipaparope = new Array();
+var arrayipanpro = new Array();
+// var arrayipanohabi = new Array();
 var arrayipanotra = new Array();
 var arrayipanoope = new Array();
 
@@ -266,18 +273,24 @@ function ResetArray(){
     if(arrayipatipo.length>0){
         arrayipatipo.length = 0;
     }
-    if(arrayipahabi.length>0){
-        arrayipahabi.length = 0;
-    }
+    // if(arrayipahabi.length>0){
+    //     arrayipahabi.length = 0;
+    // }
     if(arrayipatra.length>0){
         arrayipatra.length = 0;
     }
     if(arrayipaope.length>0){
         arrayipaope.length = 0;
     }
-    if(arrayipanohabi.length>0){
-        arrayipanohabi.length = 0;
+    if(arrayipaparope.length>0){
+        arrayipaparope.length = 0;
     }
+    if(arrayipanpro.length>0){
+        arrayipanpro.length = 0;
+    }
+    // if(arrayipanohabi.length>0){
+    //     arrayipanohabi.length = 0;
+    // }
     if(arrayipanotra.length>0){
         arrayipanotra.length = 0;
     }
@@ -313,35 +326,43 @@ function FiltrarIpas(mensaje){
                 CerrarNum();
                 CerrarDepa();
                 CerrarTipo();
-                CerrarHabi();
+                // CerrarHabi();
                 CerrarTra();
                 CerrarOpe();
-                CerrarNoHabi();
+                // CerrarNoHabi();
                 CerrarNoTra();
                 CerrarNoOpe();
+                CerrarParOpe();
+                CerrarNPro();
                 var contipadepa = 0;
                 var contipatipo = 0;
-                var contipahabi = 0;
+                // var contipahabi = 0;
                 var contipatra = 0;
                 var contipaope = 0;
-                var contipanohabi = 0;
+                var contipaparope = 0;
+                var contipanpro = 0;
+                // var contipanohabi = 0;
                 var contipanotra = 0;
                 var contipanoope = 0;
                 var numipas = 0;
                 var valipadepa = '';
                 var valipatipo = '';
-                var valipahabi = '';
+                // var valipahabi = '';
                 var valipatra = '';
                 var valipaope = '';
-                var valipanohabi = '';
+                var valipaparope = '';
+                var valipanpro = '';
+                // var valipanohabi = '';
                 var valipanotra = '';
                 var valipanoope = '';
                 numipas = c.length;
                 var trtipo = '';
-                var trhabi = '';
+                // var trhabi = '';
                 var trtra = '';
                 var trope = '';
-                var trnohabi = '';
+                var trparope = '';
+                var trnpro = '';
+                // var trnohabi = '';
                 var trnotra = '';
                 var trnoope = '';
                 if(depa !='TODOS'){
@@ -375,35 +396,35 @@ function FiltrarIpas(mensaje){
                                 '</tr>';
                     }
                 } 
-                for(h=0; h<c.length; h++){
-                    if(c[h].B_HAB == 1){ 
-                        contipahabi++;
-                        arrayipahabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
-                    } else if (c[h].B_HAB == 0){ 
-                        contipanohabi++;
-                        arrayipanohabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
-                    } 
-                }
-                if(contipahabi>1){ valipahabi = 'Habilitados'; } else { valipahabi = 'Habilitado'; }
-                if(contipanohabi>1){ valipanohabi = 'No Habilitados'; } else { valipanohabi = 'No Habilitado'; }
-                if(contipahabi>0){
-                    trhabi = '<tr>'+
-                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
-                                    '<b style="font-size: 22px;">'+contipahabi+'</b> '+valipahabi+' '+
-                                    '<button type="button" id="verlistahabi" onclick="AbrirListaHabi(1);" style="background-color: transparent; border: none;">'+
-                                    '<i class="fa-solid fa-eye"></i></button>'+
-                                '</td>'+
-                            '</tr>';
-                }
-                if(contipanohabi>0){
-                    trnohabi = '<tr>'+
-                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
-                                    '<b style="font-size: 22px;">'+contipanohabi+'</b> '+valipanohabi+' '+
-                                    '<button type="button" id="verlistanohabi" onclick="AbrirListaNoHabi(0);" style="background-color: transparent; border: none;">'+
-                                    '<i class="fa-solid fa-eye"></i></button>'+
-                                '</td>'+
-                            '</tr>';
-                }
+                // for(h=0; h<c.length; h++){
+                //     if(c[h].B_HAB == 1){ 
+                //         contipahabi++;
+                //         arrayipahabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
+                //     } else if (c[h].B_HAB == 0){ 
+                //         contipanohabi++;
+                //         arrayipanohabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
+                //     } 
+                // }
+                // if(contipahabi>1){ valipahabi = 'Habilitados'; } else { valipahabi = 'Habilitado'; }
+                // if(contipanohabi>1){ valipanohabi = 'No Habilitados'; } else { valipanohabi = 'No Habilitado'; }
+                // if(contipahabi>0){
+                //     trhabi = '<tr>'+
+                //                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                //                     '<b style="font-size: 22px;">'+contipahabi+'</b> '+valipahabi+' '+
+                //                     '<button type="button" id="verlistahabi" onclick="AbrirListaHabi(1);" style="background-color: transparent; border: none;">'+
+                //                     '<i class="fa-solid fa-eye"></i></button>'+
+                //                 '</td>'+
+                //             '</tr>';
+                // }
+                // if(contipanohabi>0){
+                //     trnohabi = '<tr>'+
+                //                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                //                     '<b style="font-size: 22px;">'+contipanohabi+'</b> '+valipanohabi+' '+
+                //                     '<button type="button" id="verlistanohabi" onclick="AbrirListaNoHabi(0);" style="background-color: transparent; border: none;">'+
+                //                     '<i class="fa-solid fa-eye"></i></button>'+
+                //                 '</td>'+
+                //             '</tr>';
+                // }
                 for(s=0; s<c.length; s++){
                     if(c[s].B_TRANS == 1){ 
                         contipatra++; 
@@ -440,15 +461,41 @@ function FiltrarIpas(mensaje){
                     } else if(c[o].I_EST == 0){ 
                         contipanoope++;
                         arrayipanoope.push([c[o].Infra_Nombre,c[o].Infra_Latitud,c[o].Infra_Longitud]);
+                    } else if(c[o].I_EST == 3){ 
+                        contipaparope++;
+                        arrayipaparope.push([c[o].Infra_Nombre,c[o].Infra_Latitud,c[o].Infra_Longitud]);
+                    } else if(c[o].I_EST == 4){ 
+                        contipanpro++;
+                        arrayipanpro.push([c[o].Infra_Nombre,c[o].Infra_Latitud,c[o].Infra_Longitud]);
                     }
                 }
                 if(contipaope>1){ valipaope = 'Operativos'; } else { valipaope = 'Operativo'; }
+                if(contipaparope>1){ valipaparope = 'Parcialmente Operativos'; } else { valipaparope = 'Parcialmente Operativo'; }
+                if(contipanpro>1){ valipanpro = 'Nuevos Proyectos'; } else { valipanpro = 'Nuevo Proyecto'; }
                 if(contipanoope>1){ valipanoope = 'No Operativos'; } else { valipanoope = 'No Operativo'; }
                 if(contipaope>0){
                     trope = '<tr>'+
                                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
                                     '<b style="font-size: 22px;">'+contipaope+'</b> '+valipaope+' '+
                                     '<button type="button" id="verlistaope" onclick="AbrirListaOpe(1);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
+                if(contipaparope>0){
+                    trparope = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 18px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipaparope+'</b> '+valipaparope+' '+
+                                    '<button type="button" id="verlistaparope" onclick="AbrirListaParOpe(1);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
+                if(contipanpro>0){
+                    trnpro = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipanpro+'</b> '+valipanpro+' '+
+                                    '<button type="button" id="verlistanpro" onclick="AbrirListaNPro(1);" style="background-color: transparent; border: none;">'+
                                     '<i class="fa-solid fa-eye"></i></button>'+
                                 '</td>'+
                             '</tr>';
@@ -465,9 +512,9 @@ function FiltrarIpas(mensaje){
                 if(c.length==1){ FocusMarker(c[0].Infra_Latitud,c[0].Infra_Longitud);}
                 c.forEach(function(valor,indice,array){
                     var GrupoMarcador = new L.marker([valor.Infra_Latitud,valor.Infra_Longitud])
-                        .bindPopup('<a href="#"><span><h4 style="text-align: center;"><b>'+valor.Infra_Nombre+'</b></h4></span></a><span><h2 style="font-size: 14px; text-align: center;">'+valor.Departamento+' - '+valor.Provincia+' - '+valor.Distrito+'</h2></span>')
+                        .bindPopup('<a href="#"><span><h4 style="text-align: center;" onclick="markerOnClick('+valor.Infra_Id+');"><b>'+valor.Infra_Nombre+'</b></h4></span></a><span><h2 style="font-size: 14px; text-align: center;">'+valor.Departamento+' - '+valor.Provincia+' - '+valor.Distrito+'</h2></span>')
                         // .setIcon(greenIcon)
-                        .on('click', function(e) { markerOnClick(e, valor.Infra_Id); })
+                        .on('click', function(e) { markerOnClick(valor.Infra_Id); })
                         .on('mouseover', function(ev) { ev.target.openPopup(); });
                         marcadorposicion.push(GrupoMarcador);
                 });
@@ -485,11 +532,13 @@ function FiltrarIpas(mensaje){
                         '</thead>'+
                         '<tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 190px;">'+
                             ''+ trtipo + ''+
-                            ''+ trhabi + ''+
-                            ''+ trnohabi + ''+
+                            // ''+ trhabi + ''+
+                            // ''+ trnohabi + ''+
                             ''+ trtra + ''+
                             ''+ trnotra + ''+
                             ''+ trope + ''+
+                            ''+ trparope + ''+
+                            ''+ trnpro + ''+
                             ''+ trnoope + ''+
                         '</tbody>'+
                     '</table>'+
@@ -529,20 +578,20 @@ function FiltrarIpas(mensaje){
                         '');
                     }
                 }
-                $('#tablalistahabi thead').html('');
-                $('#tablalistahabi tbody').html('');
-                $('#tablalistahabi thead').append(''+
-                    '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
-                        '<button type="button" class="close" id="btn_cerrar_div_listahabi" onclick="CerrarHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
-                    '</th>'+
-                '');
-                for(nd=0; nd<arrayipahabi.length; nd++){
-                    $('#tablalistahabi tbody').append(''+
-                        '<tr>'+
-                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipahabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipahabi[nd][1]+','+arrayipahabi[nd][2]+');"></i></td>'+
-                        '</tr>'+
-                    '');
-                }
+                // $('#tablalistahabi thead').html('');
+                // $('#tablalistahabi tbody').html('');
+                // $('#tablalistahabi thead').append(''+
+                //     '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
+                //         '<button type="button" class="close" id="btn_cerrar_div_listahabi" onclick="CerrarHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                //     '</th>'+
+                // '');
+                // for(nd=0; nd<arrayipahabi.length; nd++){
+                //     $('#tablalistahabi tbody').append(''+
+                //         '<tr>'+
+                //             '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipahabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipahabi[nd][1]+','+arrayipahabi[nd][2]+');"></i></td>'+
+                //         '</tr>'+
+                //     '');
+                // }
                 $('#tablalistatra thead').html('');
                 $('#tablalistatra tbody').html('');
                 $('#tablalistatra thead').append(''+
@@ -571,20 +620,48 @@ function FiltrarIpas(mensaje){
                         '</tr>'+
                     '');
                 }
-                $('#tablalistanohabi thead').html('');
-                $('#tablalistanohabi tbody').html('');
-                $('#tablalistanohabi thead').append(''+
-                    '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
-                        '<button type="button" class="close" id="btn_cerrar_div_listanohabi" onclick="CerrarNoHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                $('#tablalistaparope thead').html('');
+                $('#tablalistaparope tbody').html('');
+                $('#tablalistaparope thead').append(''+
+                    '<th id="arrastrar_parope" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA PARCIALMENTE OPERATIVOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listaparope" onclick="CerrarParOpe();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
-                for(nd=0; nd<arrayipanohabi.length; nd++){
-                    $('#tablalistanohabi tbody').append(''+
+                for(nd=0; nd<arrayipaparope.length; nd++){
+                    $('#tablalistaparope tbody').append(''+
                         '<tr>'+
-                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanohabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanohabi[nd][1]+','+arrayipanohabi[nd][2]+');"></i></td>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipaparope[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipaparope[nd][1]+','+arrayipaparope[nd][2]+');"></i></td>'+
                         '</tr>'+
                     '');
                 }
+                $('#tablalistanpro thead').html('');
+                $('#tablalistanpro tbody').html('');
+                $('#tablalistanpro thead').append(''+
+                    '<th id="arrastrar_npro" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA NUEVOS PROYECTOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listanpro" onclick="CerrarNPro();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                    '</th>'+
+                '');
+                for(nd=0; nd<arrayipanpro.length; nd++){
+                    $('#tablalistanpro tbody').append(''+
+                        '<tr>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanpro[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanpro[nd][1]+','+arrayipanpro[nd][2]+');"></i></td>'+
+                        '</tr>'+
+                    '');
+                }
+                // $('#tablalistanohabi thead').html('');
+                // $('#tablalistanohabi tbody').html('');
+                // $('#tablalistanohabi thead').append(''+
+                //     '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
+                //         '<button type="button" class="close" id="btn_cerrar_div_listanohabi" onclick="CerrarNoHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                //     '</th>'+
+                // '');
+                // for(nd=0; nd<arrayipanohabi.length; nd++){
+                //     $('#tablalistanohabi tbody').append(''+
+                //         '<tr>'+
+                //             '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanohabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanohabi[nd][1]+','+arrayipanohabi[nd][2]+');"></i></td>'+
+                //         '</tr>'+
+                //     '');
+                // }
                 $('#tablalistanotra thead').html('');
                 $('#tablalistanotra tbody').html('');
                 $('#tablalistanotra thead').append(''+
@@ -660,9 +737,9 @@ function MostrarIpasLista(de,ti,ha,ta,op){
                 BorrarMarcador();
                 c.forEach(function(valor,indice,array){
                     var GrupoMarcador = new L.marker([valor.Infra_Latitud,valor.Infra_Longitud])
-                        .bindPopup('<a href="#"><span><h4 style="text-align: center;"><b>'+valor.Infra_Nombre+'</b></h4></span></a><span><h2 style="font-size: 14px; text-align: center;">'+valor.Departamento+' - '+valor.Provincia+' - '+valor.Distrito+'</h2></span>')
+                        .bindPopup('<a href="#"><span><h4 style="text-align: center;" onclick="markerOnClick('+valor.Infra_Id+');"><b>'+valor.Infra_Nombre+'</b></h4></span></a><span><h2 style="font-size: 14px; text-align: center;">'+valor.Departamento+' - '+valor.Provincia+' - '+valor.Distrito+'</h2></span>')
                         // .setIcon(greenIcon)
-                        .on('click', function(e) { markerOnClick(e, valor.Infra_Id); })
+                        .on('click', function(e) { markerOnClick(valor.Infra_Id); })
                         .on('mouseover', function(ev) { ev.target.openPopup(); });
                         marcadorposicion.push(GrupoMarcador);
                 });
@@ -710,13 +787,16 @@ function CerrarNum(){
 function CerrarDepa(){
     document.getElementById("div_listadepa").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
 }
+
 function AbrirListaDepa(){
     document.getElementById("div_listadepa").style.display = "block";
     document.getElementById("div_listatipo").style.display = "none";
-    document.getElementById("div_listahabi").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -732,35 +812,37 @@ function AbrirListaTipo(DPA){
     var op = $('#filtro_ope').val();
     document.getElementById("div_listatipo").style.display = "block";
     document.getElementById("div_listadepa").style.display = "none";
-    document.getElementById("div_listahabi").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,tip,ha,ta,op);
 }
-function CerrarHabi(){
-    document.getElementById("div_listahabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
-}
-function AbrirListaHabi(ha){
-    var de = $('#filtro_depa').val();
-    var ti = $('#filtro_tipo').val();
-    var hab = ha;
-    var ta = $('#filtro_trans').val();
-    var op = $('#filtro_ope').val();
-    document.getElementById("div_listahabi").style.display = "block";
-    document.getElementById("div_listadepa").style.display = "none";
-    document.getElementById("div_listatipo").style.display = "none";
-    document.getElementById("div_listatra").style.display = "none";
-    document.getElementById("div_listaope").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
-    document.getElementById("div_listanotra").style.display = "none";
-    document.getElementById("div_listanoope").style.display = "none";
-    document.getElementById("div_audio").style.display = "none";
-    MostrarIpasLista(de,ti,hab,ta,op);
-}
+// function CerrarHabi(){
+//     document.getElementById("div_listahabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+// }
+// function AbrirListaHabi(ha){
+//     var de = $('#filtro_depa').val();
+//     var ti = $('#filtro_tipo').val();
+//     var hab = ha;
+//     var ta = $('#filtro_trans').val();
+//     var op = $('#filtro_ope').val();
+//     document.getElementById("div_listahabi").style.display = "block";
+//     document.getElementById("div_listadepa").style.display = "none";
+//     document.getElementById("div_listatipo").style.display = "none";
+//     document.getElementById("div_listatra").style.display = "none";
+//     document.getElementById("div_listaope").style.display = "none";
+//     document.getElementById("div_listanohabi").style.display = "none";
+//     document.getElementById("div_listanotra").style.display = "none";
+//     document.getElementById("div_listanoope").style.display = "none";
+//     document.getElementById("div_audio").style.display = "none";
+//     MostrarIpasLista(de,ti,hab,ta,op);
+// }
 function CerrarTra(){
     document.getElementById("div_listatra").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
 }
@@ -773,9 +855,11 @@ function AbrirListaTra(ta){
     document.getElementById("div_listatra").style.display = "block";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    document.getElementById("div_listahabi").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -791,37 +875,82 @@ function AbrirListaOpe(op){
     var ta = $('#filtro_trans').val();
     var opr = op;
     document.getElementById("div_listaope").style.display = "block";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    document.getElementById("div_listahabi").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,ti,ha,ta,opr);
 }
-
-function CerrarNoHabi(){
-    document.getElementById("div_listanohabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+function CerrarParOpe(){
+    document.getElementById("div_listaparope").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
 }
-function AbrirListaNoHabi(ha){
+function AbrirListaParOpe(op){
     var de = $('#filtro_depa').val();
     var ti = $('#filtro_tipo').val();
-    var hab = ha;
+    var ha = $('#filtro_hab').val();
     var ta = $('#filtro_trans').val();
-    var op = $('#filtro_ope').val();
-    document.getElementById("div_listahabi").style.display = "none";
+    var opr = op;
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "block";
+    document.getElementById("div_listanpro").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    document.getElementById("div_listaope").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "block";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
-    MostrarIpasLista(de,ti,hab,ta,op);
+    MostrarIpasLista(de,ti,ha,ta,opr);
 }
+function CerrarNPro(){
+    document.getElementById("div_listanpro").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+}
+function AbrirListaNPro(op){
+    var de = $('#filtro_depa').val();
+    var ti = $('#filtro_tipo').val();
+    var ha = $('#filtro_hab').val();
+    var ta = $('#filtro_trans').val();
+    var opr = op;
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "block";
+    document.getElementById("div_listadepa").style.display = "none";
+    document.getElementById("div_listatipo").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listatra").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
+    document.getElementById("div_audio").style.display = "none";
+    MostrarIpasLista(de,ti,ha,ta,opr);
+}
+// function CerrarNoHabi(){
+//     document.getElementById("div_listanohabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+// }
+// function AbrirListaNoHabi(ha){
+//     var de = $('#filtro_depa').val();
+//     var ti = $('#filtro_tipo').val();
+//     var hab = ha;
+//     var ta = $('#filtro_trans').val();
+//     var op = $('#filtro_ope').val();
+//     document.getElementById("div_listahabi").style.display = "none";
+//     document.getElementById("div_listadepa").style.display = "none";
+//     document.getElementById("div_listatipo").style.display = "none";
+//     document.getElementById("div_listatra").style.display = "none";
+//     document.getElementById("div_listaope").style.display = "none";
+//     document.getElementById("div_listanohabi").style.display = "block";
+//     document.getElementById("div_listanotra").style.display = "none";
+//     document.getElementById("div_listanoope").style.display = "none";
+//     document.getElementById("div_audio").style.display = "none";
+//     MostrarIpasLista(de,ti,hab,ta,op);
+// }
 function CerrarNoTra(){
     document.getElementById("div_listanotra").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
 }
@@ -834,9 +963,11 @@ function AbrirListaNoTra(ta){
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    document.getElementById("div_listahabi").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "block";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -852,11 +983,13 @@ function AbrirListaNoOpe(op){
     var ta = $('#filtro_trans').val();
     var opr = op;
     document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listaparope").style.display = "none";
+    document.getElementById("div_listanpro").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    document.getElementById("div_listahabi").style.display = "none";
+    // document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    document.getElementById("div_listanohabi").style.display = "none";
+    // document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "block";
     document.getElementById("div_audio").style.display = "none";
@@ -879,7 +1012,7 @@ function AbrirListaNoOpe(op){
 //     AbrirListaOpe();
 // });
 
-function markerOnClick(e, id)
+function markerOnClick(id)
 {
     // console.log(id);
     var x = document.getElementById("latitud").value;
@@ -935,20 +1068,20 @@ function markerOnClick(e, id)
             }
             var estcon = '';
             if(valor.I_EST == '1'){
-                estcon = '<i class="fa fa-circle" style="color: #68b64c;"></i> OPERATIVO';
+                estcon = '<i class="fa fa-circle" style="color: #498135;"></i> OPERATIVO';
                 valestado = valor.I_EST;
                 textestado = 'Operativo';
-                colorestado = '#68b64c';
+                colorestado = '#498135';
             } else if(valor.I_EST == '0'){
                 estcon = '<i class="fa fa-circle" style="color: #FF0000;"></i> NO OPERATIVO';
                 valestado = valor.I_EST;
                 textestado = 'No Operativo';
                 colorestado = '#FF0000';
             } else if(valor.I_EST == '3'){
-                estcon = '<i class="fa fa-circle" style="color: #FFC000;"></i> PARCIALMENTE OPERATIVO';
+                estcon = '<i class="fa fa-circle" style="color: #87c571;"></i> PARCIALMENTE OPERATIVO';
                 valestado = valor.I_EST;
                 textestado = 'Parcialmente Operativo';
-                colorestado = '#FFC000';
+                colorestado = '#87c571';
             } else if(valor.I_EST == '4'){
                 estcon = '<i class="fa fa-circle" style="color: #00EAFF;"></i> NUEVO PROYECTO';
                 valestado = valor.I_EST;
@@ -1277,18 +1410,24 @@ $('#div_listadepa').click(function(){
 $('#div_listatipo').click(function(){
     dragElement(this);
 });
-$('#div_listahabi').click(function(){
-    dragElement(this);
-});
+// $('#div_listahabi').click(function(){
+//     dragElement(this);
+// });
 $('#div_listatra').click(function(){
     dragElement(this);
 });
 $('#div_listaope').click(function(){
     dragElement(this);
 });
-$('#div_listanohabi').click(function(){
+$('#div_listaparope').click(function(){
     dragElement(this);
 });
+$('#div_listanpro').click(function(){
+    dragElement(this);
+});
+// $('#div_listanohabi').click(function(){
+//     dragElement(this);
+// });
 $('#div_listanotra').click(function(){
     dragElement(this);
 });
