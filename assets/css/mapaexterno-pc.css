@@ -64,8 +64,8 @@ html, body {
 }
 .audiodiv { 
   position: absolute;
-  top: 570px;
-  left: 350px;
+  top: 635px;
+  left: 20px;
   width: auto;
   height: auto;
   display: none;

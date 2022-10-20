@@ -478,9 +478,9 @@ function FiltrarIpas(mensaje){
                 $('#div_num_modificar').html(''+
                     '<table class="table-condensed" style="width: 100%;">'+
                         '<thead>'+
-                            '<th id="arrastrar_num" style="padding-left: 20px; padding-right: 10px; padding-bottom: 0px; background-color: #9fbf60; color: #16385C; width: 100%; border-radius: 15px 15px 0px 0px; text-align: left; font-size:20px;">'+
-                                '<button type="button" class="close" id="btn_cerrar_numflotante" onclick="CerrarNum();" style="color: black;font-weight: bold;font-size: 18px;">&times;</button>'+
-                                '<b style="font-size: 55px; line-height: 70px;">'+ numipas +'</b> DPA <a href="#" type="button" id="vernombredepa" onClick="AbrirListaDepa();" style="color: #16385C !important;">'+ valipadepa +'</a>'+
+                            '<th id="arrastrar_num" style="padding-left: 20px; padding-right: 10px; padding-bottom: 0px; background-color: #3c8dbc; color: #FFFFFF; width: 100%; border-radius: 15px 15px 0px 0px; text-align: left; font-size:20px;">'+
+                                '<button type="button" class="close" id="btn_cerrar_numflotante" onclick="CerrarNum();" style="color: white;font-weight: bold;font-size: 18px;">&times;</button>'+
+                                '<b style="font-size: 55px; line-height: 70px;">'+ numipas +'</b> DPA <a href="#" type="button" id="vernombredepa" onClick="AbrirListaDepa();" style="color: white !important;">'+ valipadepa +'</a>'+
                             '</th>'+
                         '</thead>'+
                         '<tbody class="table-wrapper-scroll-y my-custom-scrollbar">'+
@@ -501,7 +501,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistadepa tbody').html('');
                 if(depa !='TODOS'){
                     $('#tablalistadepa thead').append(''+
-                        '<th id="arrastrar_depa" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA EN '+ valipadepa +''+
+                        '<th id="arrastrar_depa" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA EN '+ valipadepa +''+
                             '<button type="button" class="close" id="btn_cerrar_div_listadepa" onclick="CerrarDepa();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                         '</th>'+
                     '');
@@ -517,7 +517,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistatipo tbody').html('');
                 if(tipo !='TODOS'){
                     $('#tablalistatipo thead').append(''+
-                        '<th id="arrastrar_tipo" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">IPAS DE TIPO '+ valipatipo +''+
+                        '<th id="arrastrar_tipo" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">IPAS DE TIPO '+ valipatipo +''+
                             '<button type="button" class="close" id="btn_cerrar_div_listatipo" onclick="CerrarTipo();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                         '</th>'+
                     '');
@@ -532,7 +532,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistahabi thead').html('');
                 $('#tablalistahabi tbody').html('');
                 $('#tablalistahabi thead').append(''+
-                    '<th id="arrastrar_habi" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
+                    '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listahabi" onclick="CerrarHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -546,7 +546,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistatra thead').html('');
                 $('#tablalistatra tbody').html('');
                 $('#tablalistatra thead').append(''+
-                    '<th id="arrastrar_tra" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA TRANSFERIDOS'+
+                    '<th id="arrastrar_tra" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA TRANSFERIDOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listatra" onclick="CerrarTra();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -560,7 +560,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistaope thead').html('');
                 $('#tablalistaope tbody').html('');
                 $('#tablalistaope thead').append(''+
-                    '<th id="arrastrar_ope" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA OPERATIVOS'+
+                    '<th id="arrastrar_ope" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA OPERATIVOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listaope" onclick="CerrarOpe();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -574,7 +574,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistanohabi thead').html('');
                 $('#tablalistanohabi tbody').html('');
                 $('#tablalistanohabi thead').append(''+
-                    '<th id="arrastrar_habi" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
+                    '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listanohabi" onclick="CerrarNoHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -588,7 +588,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistanotra thead').html('');
                 $('#tablalistanotra tbody').html('');
                 $('#tablalistanotra thead').append(''+
-                    '<th id="arrastrar_tra" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO TRANSFERIDOS'+
+                    '<th id="arrastrar_tra" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO TRANSFERIDOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listanotra" onclick="CerrarNoTra();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -602,7 +602,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistanoope thead').html('');
                 $('#tablalistanoope tbody').html('');
                 $('#tablalistanoope thead').append(''+
-                    '<th id="arrastrar_ope" style="background-color: #9fbf60; color: #16385C; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO OPERATIVOS'+
+                    '<th id="arrastrar_ope" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO OPERATIVOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listanoope" onclick="CerrarNoOpe();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -696,7 +696,7 @@ function FocusMarker(lat,lon){
 
 function CerrarDivDatos(){
     document.getElementById("seccion_cards").style.cssText = "position: absolute;top: 115px;right: 15px;width: 640px;display: none;transition: right 0.5s; z-index: 1997;padding-left: 0px;padding-right: 0px;height: 510px;overflow-y: auto;";
-    document.getElementById("div_audio").style.cssText = "position: absolute; top: 570px; left: 350px; width: auto; height: auto; display: none; z-index: 1997; padding: 0px; background-color: transparent;";
+    document.getElementById("div_audio").style.cssText = "position: absolute; top: 635px; left: 20px; width: auto; height: auto; display: none; z-index: 1997; padding: 0px; background-color: transparent;";
     $('#div_audio').html('');
 }
 
