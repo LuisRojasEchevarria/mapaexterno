@@ -13,7 +13,7 @@ $.ajax({
         c.forEach(function(valor,indice,array){
             // console.log(valor);
             if(valor.Dpto_Id != '00'){
-                $('#filtro_depa').append('<option value="' + valor.Dpto_Id + '">' + valor.Dpto_Nombre + '</option>');
+                $('#filtro_depa').append('<option value="' + valor.Dpto_Id + '" nombre="' + valor.Dpto_Nombre + '">' + valor.Dpto_Nombre + '</option>');
             }
         });
     },
@@ -23,7 +23,9 @@ $.ajax({
 });
 $('#filtro_depa').change(function(){
     var val = $('#filtro_depa').val();
-    console.log(val);
+    var namemsn = $('#filtro_depa option:selected').attr('nombre');
+    // console.log(val);
+    // console.log(namemsn);
     $.ajax({
         url: window.base_url + 'mapa/listadeipa',
         type:'post',
@@ -51,7 +53,7 @@ $('#filtro_depa').change(function(){
             // console.log(e);
         }
     });
-    var mensaje = 'No encontramos Infraestructuras dentro de su búsqueda.';
+    var mensaje = 'No encontramos Infraestructuras en '+namemsn+'.';
     FiltrarIpas(mensaje);
 });
 $('#filtro_tipo').change(function(){
@@ -203,8 +205,6 @@ function initMap(){
     iniMarcadores();
 
 }
-
-
 
 function iniMarcadores(){
     $.ajax({
@@ -693,13 +693,13 @@ function FiltrarIpas(mensaje){
                 $('#divmapa-loading').hide();
             } else {
                 swal({
-                    title: "ERROR",
-                    text: "No se encontraron registros",
+                    title: "ADVERTENCIA",
+                    text: mensaje,
                     type: "warning",
                     showCancelButton: false,
                     confirmButtonColor: "#3085d6",
                     confirmButtonText: "Aceptar",
-                    footer: '<center><b><i>'+ mensaje +'</i></b></center>'
+                    footer: '<center><b><i>Por favor elija otras opciones para su búsqueda.</i></b></center>'
                 });
                 $('#divmapa-loading').hide();
             }
@@ -1073,20 +1073,20 @@ function markerOnClick(id)
                 textestado = 'Operativo';
                 colorestado = '#498135';
             } else if(valor.I_EST == '0'){
-                estcon = '<i class="fa fa-circle" style="color: #FF0000;"></i> NO OPERATIVO';
+                estcon = '<i class="fa fa-circle" style="color: #f39c12;"></i> NO OPERATIVO';
                 valestado = valor.I_EST;
                 textestado = 'No Operativo';
-                colorestado = '#FF0000';
+                colorestado = '#f39c12';
             } else if(valor.I_EST == '3'){
                 estcon = '<i class="fa fa-circle" style="color: #87c571;"></i> PARCIALMENTE OPERATIVO';
                 valestado = valor.I_EST;
                 textestado = 'Parcialmente Operativo';
                 colorestado = '#87c571';
             } else if(valor.I_EST == '4'){
-                estcon = '<i class="fa fa-circle" style="color: #00EAFF;"></i> NUEVO PROYECTO';
+                estcon = '<i class="fa fa-circle" style="color: #00c5eb;"></i> NUEVO PROYECTO';
                 valestado = valor.I_EST;
                 textestado = 'Nuevo Proyecto';
-                colorestado = '#00EAFF';
+                colorestado = '#00c5eb';
             } else {
                 estcon = 'SIN DATOS';
                 valestado = valor.I_EST;
