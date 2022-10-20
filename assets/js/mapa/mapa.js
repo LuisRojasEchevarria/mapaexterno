@@ -483,7 +483,7 @@ function FiltrarIpas(mensaje){
                                 '<b style="font-size: 55px; line-height: 70px;">'+ numipas +'</b> DPA <a href="#" type="button" id="vernombredepa" onClick="AbrirListaDepa();" style="color: white !important;">'+ valipadepa +'</a>'+
                             '</th>'+
                         '</thead>'+
-                        '<tbody class="table-wrapper-scroll-y my-custom-scrollbar">'+
+                        '<tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 190px;">'+
                             ''+ trtipo + ''+
                             ''+ trhabi + ''+
                             ''+ trnohabi + ''+
@@ -695,7 +695,7 @@ function FocusMarker(lat,lon){
 }
 
 function CerrarDivDatos(){
-    document.getElementById("seccion_cards").style.cssText = "position: absolute;top: 115px;right: 15px;width: 640px;display: none;transition: right 0.5s; z-index: 1997;padding-left: 0px;padding-right: 0px;height: 510px;overflow-y: auto;";
+    document.getElementById("seccion_cards").style.cssText = "background-color: #efefef; position: absolute;top: 140px;right: 15px;width: 640px;display: none;transition: right 0.5s; z-index: 1997;padding-left: 0px;padding-right: 0px;height: auto; height: auto;overflow-y: auto;";
     document.getElementById("div_audio").style.cssText = "position: absolute; top: 635px; left: 20px; width: auto; height: auto; display: none; z-index: 1997; padding: 0px; background-color: transparent;";
     $('#div_audio').html('');
 }
@@ -1018,7 +1018,7 @@ function markerOnClick(e, id)
                 '<div class="table-responsive" style="width: 100%; border-radius: 0px 0px 15px 15px !important;">'+      
                     '<table class="table-condensed" style="width: 100%;">'+
                         '<thead>'+
-                            '<th style="background-color: #16385C; color: #ffffff; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">INFORMACIÓN GENERAL</th>'+
+                            '<th style="background-color: #3c8dbc; color: #ffffff; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">INFORMACIÓN GENERAL</th>'+
                         '</thead>'+
                         '<tbody style="'+ tb +'">'+
                             '<tr>'+
@@ -1058,6 +1058,7 @@ function markerOnClick(e, id)
             $('#estadistica_ipa').html(''+
                 '<div id="containercircle" style="width: 550px; height: 280px; margin: 0 auto; text align: center;">'+
                 '</div>'+
+                
                 // '<div id="containergraf" style="width: 550px; height: 400px; margin: 0 auto;">'+
                 // '</div>'+
             '');
@@ -1128,7 +1129,7 @@ function markerOnClick(e, id)
             $('#multimedia_ipa').html(''+
                 '<table class="table-condensed">'+
                     '<thead>'+
-                        '<th style="background-color: #16385C; color: #ffffff; width: 685px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">INFOGRAFÍA</th>'+
+                        '<th style="background-color: #3c8dbc; color: #ffffff; width: 685px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">INFOGRAFÍA</th>'+
                     '</thead>'+
                 '</table>'+
                 '<div class="container" style="width: 100%;">'+
@@ -1153,7 +1154,7 @@ function markerOnClick(e, id)
             '');
 
             var nombreipabuscar = valor.nombredpa;
-            nombreipabuscar = nombreipabuscar.replace(' ','');
+            nombreipabuscar = nombreipabuscar.replace(/ /g,'');
             var urldocumento = window.base_url.split('/')[0]+'/'+window.base_url.split('/')[1]+'/'+window.base_url.split('/')[2]+'/DOCUMENTO/';
 
             $.ajax({

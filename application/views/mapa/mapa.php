@@ -63,7 +63,8 @@ $base_url = load_class('Config')->config['base_url'];
     <div class="wrapper">
         <!-- Header principal -->
         <header class="main-header" style="background: #3c8dbc; height: 53.39px !important; vertical-align: middle;">
-            <h2 style="text-align: center !important; color: white; margin: 0px; padding-top: 10px;"><b>DESEMBARCADEROS PESQUEROS ARTESANALES <?php echo ' - CANTIDAD DE VISITAS : ' . str_pad($fila->cantidad,5,"0",STR_PAD_LEFT); ?></b></h2>
+            <h2 class="col-lg-10" style="text-align: center !important; color: white; margin: 0px; padding-top: 10px;"><b>DESEMBARCADEROS PESQUEROS ARTESANALES</b></h2>
+            <h2 class="col-lg-2" style="text-align: center !important; color: white; margin: 0px; padding-top: 10px;"><b><?php echo 'VISITAS : ' . str_pad($fila->cantidad,5,"0",STR_PAD_LEFT); ?></b></h2>
             <input id="latitud" name="latitud" type="hidden"  value="">
             <input id="longitud" name="longitud" type="hidden"  value="">
         </header>
@@ -115,7 +116,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistadepa" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -125,7 +126,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistatipo" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -135,7 +136,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistahabi" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -145,7 +146,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistatra" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -155,7 +156,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistaope" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -165,7 +166,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistanohabi" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -175,7 +176,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistanotra" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -185,7 +186,7 @@ $base_url = load_class('Config')->config['base_url'];
                     <table id="tablalistanoope" class="table-condensed" style="width: 100%;">
                         <thead>
                         </thead>
-                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 210px;">
+                        <tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 200px;">
                         </tbody>
                     </table>
                 </div>
@@ -197,7 +198,7 @@ $base_url = load_class('Config')->config['base_url'];
             <div id="divmapa-loading" class="loading-custom text-gray-no-line-height" style="text-align: center; vertical-align: middle; position: fixed;"><i class="fa fa-refresh fa-spin fa-fw"></i></div>
             <div id="map"></div>
         </section>
-        <div id="seccion_cards" class="col-lg-4" style="background-color: white;">
+        <div id="seccion_cards" class="col-lg-4" style="background-color: #efefef;">
             <div id="cards" class="col-lg-12" style="padding: 5px; background-color: #efefef;">
                 <button type="button" class="close" id="btn_cerrar_divdatosipa" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>
                 <div id="datos_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: #d9d9d9; border-radius: 15px;">
@@ -208,7 +209,7 @@ $base_url = load_class('Config')->config['base_url'];
                 </div>
                 <table class="table-condensed" style="margin-left: 5px;">
                     <thead>
-                        <th style="background-color: #16385C; color: #ffffff; width: 580px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">ESTADO</th>
+                        <th style="background-color: #3c8dbc; color: #ffffff; width: 580px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">ESTADO</th>
                     </thead>
                 </table>
                 <div id="estadistica_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: white; border-radius: 0px 0px 15px 15px;">

@@ -35,10 +35,11 @@ html, body {
 #datos_ipa { padding-left: 0px; padding-right: 0px; width: 580px;}
 #estadistica_ipa { padding-left: 0px; padding-right: 0px; width: 580px;}
 #multimedia_ipa { padding-left: 0px; padding-right: 0px; width: 580px; }
-#cards { padding: 0px; z-index: 10; }
+#cards { padding: 0px; z-index: 10; background-color: #efefef;}
 #seccion_cards { 
+  background-color: #efefef;
   position: absolute;
-  top: 115px;
+  top: 140px;
   right: 15px;
   width: 640px;
   display: none;
@@ -46,7 +47,8 @@ html, body {
   z-index: 1997;
   padding-left: 0px;
   padding-right: 0px;
-  height: 630px;
+  max-height: 630px;
+  height: auto;
   overflow-y: auto;
 }
 .numflotante { 
