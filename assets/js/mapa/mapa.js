@@ -245,13 +245,13 @@ function iniMarcadores(){
 
 var marcadorposicion = new Array();
 var arrayipadepa = new Array();
-// var arrayipahabi = new Array();
+var arrayipahabi = new Array();
 var arrayipatra = new Array();
 var arrayipatipo = new Array();
 var arrayipaope = new Array();
 var arrayipaparope = new Array();
 var arrayipanpro = new Array();
-// var arrayipanohabi = new Array();
+var arrayipanohabi = new Array();
 var arrayipanotra = new Array();
 var arrayipanoope = new Array();
 
@@ -273,9 +273,9 @@ function ResetArray(){
     if(arrayipatipo.length>0){
         arrayipatipo.length = 0;
     }
-    // if(arrayipahabi.length>0){
-    //     arrayipahabi.length = 0;
-    // }
+    if(arrayipahabi.length>0){
+        arrayipahabi.length = 0;
+    }
     if(arrayipatra.length>0){
         arrayipatra.length = 0;
     }
@@ -288,9 +288,9 @@ function ResetArray(){
     if(arrayipanpro.length>0){
         arrayipanpro.length = 0;
     }
-    // if(arrayipanohabi.length>0){
-    //     arrayipanohabi.length = 0;
-    // }
+    if(arrayipanohabi.length>0){
+        arrayipanohabi.length = 0;
+    }
     if(arrayipanotra.length>0){
         arrayipanotra.length = 0;
     }
@@ -326,45 +326,46 @@ function FiltrarIpas(mensaje){
                 CerrarNum();
                 CerrarDepa();
                 CerrarTipo();
-                // CerrarHabi();
+                CerrarHabi();
                 CerrarTra();
                 CerrarOpe();
-                // CerrarNoHabi();
+                CerrarNoHabi();
                 CerrarNoTra();
                 CerrarNoOpe();
                 CerrarParOpe();
                 CerrarNPro();
                 var contipadepa = 0;
                 var contipatipo = 0;
-                // var contipahabi = 0;
+                var contipahabi = 0;
                 var contipatra = 0;
                 var contipaope = 0;
                 var contipaparope = 0;
                 var contipanpro = 0;
-                // var contipanohabi = 0;
+                var contipanohabi = 0;
                 var contipanotra = 0;
                 var contipanoope = 0;
                 var numipas = 0;
                 var valipadepa = '';
                 var valipatipo = '';
-                // var valipahabi = '';
+                var valipahabi = '';
                 var valipatra = '';
                 var valipaope = '';
                 var valipaparope = '';
                 var valipanpro = '';
-                // var valipanohabi = '';
+                var valipanohabi = '';
                 var valipanotra = '';
                 var valipanoope = '';
                 numipas = c.length;
                 var trtipo = '';
-                // var trhabi = '';
+                var trhabi = '';
                 var trtra = '';
                 var trope = '';
                 var trparope = '';
                 var trnpro = '';
-                // var trnohabi = '';
+                var trnohabi = '';
                 var trnotra = '';
                 var trnoope = '';
+                var trespacio = '';
                 if(depa !='TODOS'){
                     contipadepa = c.length;
                     valipadepa = c[0].Departamento;
@@ -396,35 +397,35 @@ function FiltrarIpas(mensaje){
                                 '</tr>';
                     }
                 } 
-                // for(h=0; h<c.length; h++){
-                //     if(c[h].B_HAB == 1){ 
-                //         contipahabi++;
-                //         arrayipahabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
-                //     } else if (c[h].B_HAB == 0){ 
-                //         contipanohabi++;
-                //         arrayipanohabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
-                //     } 
-                // }
-                // if(contipahabi>1){ valipahabi = 'Habilitados'; } else { valipahabi = 'Habilitado'; }
-                // if(contipanohabi>1){ valipanohabi = 'No Habilitados'; } else { valipanohabi = 'No Habilitado'; }
-                // if(contipahabi>0){
-                //     trhabi = '<tr>'+
-                //                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
-                //                     '<b style="font-size: 22px;">'+contipahabi+'</b> '+valipahabi+' '+
-                //                     '<button type="button" id="verlistahabi" onclick="AbrirListaHabi(1);" style="background-color: transparent; border: none;">'+
-                //                     '<i class="fa-solid fa-eye"></i></button>'+
-                //                 '</td>'+
-                //             '</tr>';
-                // }
-                // if(contipanohabi>0){
-                //     trnohabi = '<tr>'+
-                //                 '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
-                //                     '<b style="font-size: 22px;">'+contipanohabi+'</b> '+valipanohabi+' '+
-                //                     '<button type="button" id="verlistanohabi" onclick="AbrirListaNoHabi(0);" style="background-color: transparent; border: none;">'+
-                //                     '<i class="fa-solid fa-eye"></i></button>'+
-                //                 '</td>'+
-                //             '</tr>';
-                // }
+                for(h=0; h<c.length; h++){
+                    if(c[h].B_HAB == 1){ 
+                        contipahabi++;
+                        arrayipahabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
+                    } else if (c[h].B_HAB == 0){ 
+                        contipanohabi++;
+                        arrayipanohabi.push([c[h].Infra_Nombre,c[h].Infra_Latitud,c[h].Infra_Longitud]);
+                    } 
+                }
+                if(contipahabi>1){ valipahabi = 'Habilitados'; } else { valipahabi = 'Habilitado'; }
+                if(contipanohabi>1){ valipanohabi = 'No Habilitados'; } else { valipanohabi = 'No Habilitado'; }
+                if(contipahabi>0){
+                    trhabi = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipahabi+'</b> '+valipahabi+' '+
+                                    '<button type="button" id="verlistahabi" onclick="AbrirListaHabi(1);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
+                if(contipanohabi>0){
+                    trnohabi = '<tr>'+
+                                '<td style="padding-left: 20px; font-size: 20px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+
+                                    '<b style="font-size: 22px;">'+contipanohabi+'</b> '+valipanohabi+' '+
+                                    '<button type="button" id="verlistanohabi" onclick="AbrirListaNoHabi(0);" style="background-color: transparent; border: none;">'+
+                                    '<i class="fa-solid fa-eye"></i></button>'+
+                                '</td>'+
+                            '</tr>';
+                }
                 for(s=0; s<c.length; s++){
                     if(c[s].B_TRANS == 1){ 
                         contipatra++; 
@@ -471,7 +472,7 @@ function FiltrarIpas(mensaje){
                 }
                 if(contipaope>1){ valipaope = 'Operativos'; } else { valipaope = 'Operativo'; }
                 if(contipaparope>1){ valipaparope = 'Parcialmente Operativos'; } else { valipaparope = 'Parcialmente Operativo'; }
-                if(contipanpro>1){ valipanpro = 'Nuevos Proyectos'; } else { valipanpro = 'Nuevo Proyecto'; }
+                if(contipanpro>1){ valipanpro = 'Proyectos Nuevos'; } else { valipanpro = 'Proyecto Nuevo'; }
                 if(contipanoope>1){ valipanoope = 'No Operativos'; } else { valipanoope = 'No Operativo'; }
                 if(contipaope>0){
                     trope = '<tr>'+
@@ -509,6 +510,7 @@ function FiltrarIpas(mensaje){
                                 '</td>'+
                             '</tr>';
                 }
+                trespacio = '<tr><td style="border-bottom: 1px solid #3c8dbc; padding: 0px;"></td></tr>';
                 if(c.length==1){ FocusMarker(c[0].Infra_Latitud,c[0].Infra_Longitud);}
                 c.forEach(function(valor,indice,array){
                     var GrupoMarcador = new L.marker([valor.Infra_Latitud,valor.Infra_Longitud])
@@ -531,15 +533,17 @@ function FiltrarIpas(mensaje){
                             '</th>'+
                         '</thead>'+
                         '<tbody class="table-wrapper-scroll-y my-custom-scrollbar" style="height: 190px;">'+
-                            ''+ trtipo + ''+
-                            // ''+ trhabi + ''+
-                            // ''+ trnohabi + ''+
+                            // ''+ trtipo + ''+
+                            ''+ trhabi + ''+
+                            ''+ trnohabi + ''+
+                            ''+ trespacio + ''+
                             ''+ trtra + ''+
                             ''+ trnotra + ''+
+                            ''+ trespacio + ''+
                             ''+ trope + ''+
                             ''+ trparope + ''+
                             ''+ trnpro + ''+
-                            ''+ trnoope + ''+
+                            // ''+ trnoope + ''+
                         '</tbody>'+
                     '</table>'+
                 '');
@@ -578,20 +582,20 @@ function FiltrarIpas(mensaje){
                         '');
                     }
                 }
-                // $('#tablalistahabi thead').html('');
-                // $('#tablalistahabi tbody').html('');
-                // $('#tablalistahabi thead').append(''+
-                //     '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
-                //         '<button type="button" class="close" id="btn_cerrar_div_listahabi" onclick="CerrarHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
-                //     '</th>'+
-                // '');
-                // for(nd=0; nd<arrayipahabi.length; nd++){
-                //     $('#tablalistahabi tbody').append(''+
-                //         '<tr>'+
-                //             '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipahabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipahabi[nd][1]+','+arrayipahabi[nd][2]+');"></i></td>'+
-                //         '</tr>'+
-                //     '');
-                // }
+                $('#tablalistahabi thead').html('');
+                $('#tablalistahabi tbody').html('');
+                $('#tablalistahabi thead').append(''+
+                    '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA HABILITADOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listahabi" onclick="CerrarHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                    '</th>'+
+                '');
+                for(nd=0; nd<arrayipahabi.length; nd++){
+                    $('#tablalistahabi tbody').append(''+
+                        '<tr>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipahabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipahabi[nd][1]+','+arrayipahabi[nd][2]+');"></i></td>'+
+                        '</tr>'+
+                    '');
+                }
                 $('#tablalistatra thead').html('');
                 $('#tablalistatra tbody').html('');
                 $('#tablalistatra thead').append(''+
@@ -637,7 +641,7 @@ function FiltrarIpas(mensaje){
                 $('#tablalistanpro thead').html('');
                 $('#tablalistanpro tbody').html('');
                 $('#tablalistanpro thead').append(''+
-                    '<th id="arrastrar_npro" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA NUEVOS PROYECTOS'+
+                    '<th id="arrastrar_npro" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPA PROYECTOS NUEVOS'+
                         '<button type="button" class="close" id="btn_cerrar_div_listanpro" onclick="CerrarNPro();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
                     '</th>'+
                 '');
@@ -648,20 +652,20 @@ function FiltrarIpas(mensaje){
                         '</tr>'+
                     '');
                 }
-                // $('#tablalistanohabi thead').html('');
-                // $('#tablalistanohabi tbody').html('');
-                // $('#tablalistanohabi thead').append(''+
-                //     '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
-                //         '<button type="button" class="close" id="btn_cerrar_div_listanohabi" onclick="CerrarNoHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
-                //     '</th>'+
-                // '');
-                // for(nd=0; nd<arrayipanohabi.length; nd++){
-                //     $('#tablalistanohabi tbody').append(''+
-                //         '<tr>'+
-                //             '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanohabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanohabi[nd][1]+','+arrayipanohabi[nd][2]+');"></i></td>'+
-                //         '</tr>'+
-                //     '');
-                // }
+                $('#tablalistanohabi thead').html('');
+                $('#tablalistanohabi tbody').html('');
+                $('#tablalistanohabi thead').append(''+
+                    '<th id="arrastrar_habi" style="background-color: #3c8dbc; color: #FFFFFF; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px; padding-left: 20px;" colspan="1">DPAS NO HABILITADOS'+
+                        '<button type="button" class="close" id="btn_cerrar_div_listanohabi" onclick="CerrarNoHabi();" style="color: black;font-weight: bold;font-size: 28px;">&times;</button>'+
+                    '</th>'+
+                '');
+                for(nd=0; nd<arrayipanohabi.length; nd++){
+                    $('#tablalistanohabi tbody').append(''+
+                        '<tr>'+
+                            '<td style="padding-left: 20px; font-size: 14px;"><i class="fa-solid fa-minus" style="font-size: 15px;"></i> '+arrayipanohabi[nd][0]+' <i class="fa fa-location-dot" onclick="FocusMarker('+arrayipanohabi[nd][1]+','+arrayipanohabi[nd][2]+');"></i></td>'+
+                        '</tr>'+
+                    '');
+                }
                 $('#tablalistanotra thead').html('');
                 $('#tablalistanotra tbody').html('');
                 $('#tablalistanotra thead').append(''+
@@ -791,12 +795,12 @@ function CerrarDepa(){
 function AbrirListaDepa(){
     document.getElementById("div_listadepa").style.display = "block";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
     document.getElementById("div_listaparope").style.display = "none";
     document.getElementById("div_listanpro").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -812,37 +816,37 @@ function AbrirListaTipo(DPA){
     var op = $('#filtro_ope').val();
     document.getElementById("div_listatipo").style.display = "block";
     document.getElementById("div_listadepa").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
     document.getElementById("div_listaparope").style.display = "none";
     document.getElementById("div_listanpro").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,tip,ha,ta,op);
 }
-// function CerrarHabi(){
-//     document.getElementById("div_listahabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
-// }
-// function AbrirListaHabi(ha){
-//     var de = $('#filtro_depa').val();
-//     var ti = $('#filtro_tipo').val();
-//     var hab = ha;
-//     var ta = $('#filtro_trans').val();
-//     var op = $('#filtro_ope').val();
-//     document.getElementById("div_listahabi").style.display = "block";
-//     document.getElementById("div_listadepa").style.display = "none";
-//     document.getElementById("div_listatipo").style.display = "none";
-//     document.getElementById("div_listatra").style.display = "none";
-//     document.getElementById("div_listaope").style.display = "none";
-//     document.getElementById("div_listanohabi").style.display = "none";
-//     document.getElementById("div_listanotra").style.display = "none";
-//     document.getElementById("div_listanoope").style.display = "none";
-//     document.getElementById("div_audio").style.display = "none";
-//     MostrarIpasLista(de,ti,hab,ta,op);
-// }
+function CerrarHabi(){
+    document.getElementById("div_listahabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+}
+function AbrirListaHabi(ha){
+    var de = $('#filtro_depa').val();
+    var ti = $('#filtro_tipo').val();
+    var hab = ha;
+    var ta = $('#filtro_trans').val();
+    var op = $('#filtro_ope').val();
+    document.getElementById("div_listahabi").style.display = "block";
+    document.getElementById("div_listadepa").style.display = "none";
+    document.getElementById("div_listatipo").style.display = "none";
+    document.getElementById("div_listatra").style.display = "none";
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
+    document.getElementById("div_audio").style.display = "none";
+    MostrarIpasLista(de,ti,hab,ta,op);
+}
 function CerrarTra(){
     document.getElementById("div_listatra").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
 }
@@ -855,11 +859,11 @@ function AbrirListaTra(ta){
     document.getElementById("div_listatra").style.display = "block";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
     document.getElementById("div_listaparope").style.display = "none";
     document.getElementById("div_listanpro").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -879,9 +883,9 @@ function AbrirListaOpe(op){
     document.getElementById("div_listanpro").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -901,9 +905,9 @@ function AbrirListaParOpe(op){
     document.getElementById("div_listanpro").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -923,34 +927,34 @@ function AbrirListaNPro(op){
     document.getElementById("div_listanpro").style.display = "block";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
     MostrarIpasLista(de,ti,ha,ta,opr);
 }
-// function CerrarNoHabi(){
-//     document.getElementById("div_listanohabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
-// }
-// function AbrirListaNoHabi(ha){
-//     var de = $('#filtro_depa').val();
-//     var ti = $('#filtro_tipo').val();
-//     var hab = ha;
-//     var ta = $('#filtro_trans').val();
-//     var op = $('#filtro_ope').val();
-//     document.getElementById("div_listahabi").style.display = "none";
-//     document.getElementById("div_listadepa").style.display = "none";
-//     document.getElementById("div_listatipo").style.display = "none";
-//     document.getElementById("div_listatra").style.display = "none";
-//     document.getElementById("div_listaope").style.display = "none";
-//     document.getElementById("div_listanohabi").style.display = "block";
-//     document.getElementById("div_listanotra").style.display = "none";
-//     document.getElementById("div_listanoope").style.display = "none";
-//     document.getElementById("div_audio").style.display = "none";
-//     MostrarIpasLista(de,ti,hab,ta,op);
-// }
+function CerrarNoHabi(){
+    document.getElementById("div_listanohabi").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
+}
+function AbrirListaNoHabi(ha){
+    var de = $('#filtro_depa').val();
+    var ti = $('#filtro_tipo').val();
+    var hab = ha;
+    var ta = $('#filtro_trans').val();
+    var op = $('#filtro_ope').val();
+    document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listadepa").style.display = "none";
+    document.getElementById("div_listatipo").style.display = "none";
+    document.getElementById("div_listatra").style.display = "none";
+    document.getElementById("div_listaope").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "block";
+    document.getElementById("div_listanotra").style.display = "none";
+    document.getElementById("div_listanoope").style.display = "none";
+    document.getElementById("div_audio").style.display = "none";
+    MostrarIpasLista(de,ti,hab,ta,op);
+}
 function CerrarNoTra(){
     document.getElementById("div_listanotra").style.cssText = "position: absolute;top: 380px;left: 20px;width: 300px;height: 250px;display: none;background-color: #d9d9d9;border-radius: 15px;z-index: 1997;padding: 0px;";
 }
@@ -963,11 +967,11 @@ function AbrirListaNoTra(ta){
     document.getElementById("div_listatra").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listaope").style.display = "none";
     document.getElementById("div_listaparope").style.display = "none";
     document.getElementById("div_listanpro").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "block";
     document.getElementById("div_listanoope").style.display = "none";
     document.getElementById("div_audio").style.display = "none";
@@ -987,9 +991,9 @@ function AbrirListaNoOpe(op){
     document.getElementById("div_listanpro").style.display = "none";
     document.getElementById("div_listadepa").style.display = "none";
     document.getElementById("div_listatipo").style.display = "none";
-    // document.getElementById("div_listahabi").style.display = "none";
+    document.getElementById("div_listahabi").style.display = "none";
     document.getElementById("div_listatra").style.display = "none";
-    // document.getElementById("div_listanohabi").style.display = "none";
+    document.getElementById("div_listanohabi").style.display = "none";
     document.getElementById("div_listanotra").style.display = "none";
     document.getElementById("div_listanoope").style.display = "block";
     document.getElementById("div_audio").style.display = "none";
@@ -1048,44 +1052,63 @@ function markerOnClick(id)
             var valestado = 0;
             var textestado = '';
             var colorestado ='';
-            if(valor.B_HAB == '1'){
-                ihcond = '<i class="glyphicon glyphicon-ok-circle" style="'+ xsi +'"></i>';
-            } else if(valor.B_HAB == '0'){
-                ihcond = '<i class="glyphicon glyphicon-remove-circle" style="'+ xno +'"></i>';
-            }
-            if(valor.I_HAB_DET == '2'){
-                habdet = 'INTEGRAL (DESCARGA)';
-            } else if(valor.I_HAB_DET == '1'){
-                habdet = 'PARCIAL (DESCARGA/TAREAS PREVIAS)';
-            } else {
-                habdet = 'NINGUNO';
+            var condicampo ='';
+            if(valor.I_EST != '4'){
+                if(valor.B_HAB == '1'){
+                    ihcond = '<i class="glyphicon glyphicon-ok-circle" style="'+ xsi +'"></i>';
+                } else if(valor.B_HAB == '0'){
+                    ihcond = '<i class="glyphicon glyphicon-remove-circle" style="'+ xno +'"></i>';
+                }
+                if(valor.I_HAB_DET == '2'){
+                    if(valor.Infra_Id == '56'){
+                        habdet = 'CUENTA CON HABILITACIÓN SANITARIA (MOLUSCOS BIVALVOS)';
+                    } else {
+                        habdet = 'CUENTA CON HABILITACIÓN SANITARIA';
+                    }
+                } else if(valor.I_HAB_DET == '1'){
+                    // habdet = 'PARCIAL (DESCARGA/TAREAS PREVIAS)';
+                    if(valor.Infra_Id == '56'){
+                        habdet = 'CUENTA CON HABILITACIÓN SANITARIA (MOLUSCOS BIVALVOS)';
+                    } else {
+                        habdet = 'CUENTA CON HABILITACIÓN SANITARIA';
+                    }
+                } else {
+                    habdet = 'NO HABILITADO';
+                }
+                condicampo = '<tr>'+
+                                '<th style="'+ th +' '+ xsr +' '+ pl10 +'">CONDICIÓN:</th>'+
+                                '<td style="'+ td +' '+ xsl +'" colspan="6">'+ ihcond +' '+ habdet +'</td>'+
+                            '</tr>';
             }
             var itcond = '';
-            if(valor.B_TRANS == '1'){
-                itcond = '<i class="glyphicon glyphicon-ok-circle" style="'+ xsi +'"></i> TRANSFERIDO';
-            } else if(valor.B_TRANS == '0'){
-                itcond = '<i class="glyphicon glyphicon-remove-circle" style="'+ xno +'"></i> NO TRANSFERIDO';
+            if(valor.I_EST != '4'){
+                if(valor.B_TRANS == '1'){
+                    itcond = '<i class="glyphicon glyphicon-ok-circle" style="'+ xsi +'"></i> TRANSFERIDO';
+                } else if(valor.B_TRANS == '0'){
+                    itcond = '<i class="glyphicon glyphicon-remove-circle" style="'+ xno +'"></i> NO TRANSFERIDO';
+                }
             }
             var estcon = '';
             if(valor.I_EST == '1'){
-                estcon = '<i class="fa fa-circle" style="color: #498135;"></i> OPERATIVO';
+                estcon = '<i class="fa fa-circle" style="color: #498135;"></i> OPERATIVO<br>';
                 valestado = valor.I_EST;
                 textestado = 'Operativo';
                 colorestado = '#498135';
             } else if(valor.I_EST == '0'){
-                estcon = '<i class="fa fa-circle" style="color: #f39c12;"></i> NO OPERATIVO';
+                estcon = '<i class="fa fa-circle" style="color: #f39c12;"></i> NO OPERATIVO<br>';
+                estcon = '';
                 valestado = valor.I_EST;
                 textestado = 'No Operativo';
                 colorestado = '#f39c12';
             } else if(valor.I_EST == '3'){
-                estcon = '<i class="fa fa-circle" style="color: #87c571;"></i> PARCIALMENTE OPERATIVO';
+                estcon = '<i class="fa fa-circle" style="color: #87c571;"></i> PARCIALMENTE OPERATIVO<br>';
                 valestado = valor.I_EST;
                 textestado = 'Parcialmente Operativo';
                 colorestado = '#87c571';
             } else if(valor.I_EST == '4'){
-                estcon = '<i class="fa fa-circle" style="color: #00c5eb;"></i> NUEVO PROYECTO';
+                estcon = '<i class="fa fa-circle" style="color: #00c5eb;"></i> PROYECTO NUEVO<br>';
                 valestado = valor.I_EST;
-                textestado = 'Nuevo Proyecto';
+                textestado = 'Proyecto Nuevo';
                 colorestado = '#00c5eb';
             } else {
                 estcon = 'SIN DATOS';
@@ -1166,17 +1189,14 @@ function markerOnClick(id)
                                 '<th style="'+ th +' '+ xsr +' '+ pl10 +'">UBICACIÓN:</th>'+
                                 '<td style="'+ td +' '+ xsl +'" colspan="6">'+ valor.Departamento +' - '+ valor.Provincia +' - '+ valor.Distrito +'</td>'+
                             '</tr>'+
-                            // '<tr>'+
-                            //     '<th style="'+ th +' '+ xsr +' '+ pl10 +'">HABILITADO:</th>'+
-                            //     '<td style="'+ td +' '+ xsl +'" colspan="6">'+ ihcond +' '+ habdet +'</td>'+
-                            // '</tr>'+
+                            condicampo+
                             // '<tr>'+
                             //     '<th style="'+ th +' '+ xsr +' '+ pl10 +'">TRANSFERIDO:</th>'+
                             //     '<td style="'+ td +' '+ xsl +'" colspan="6">'+ itcond +' '+ valor.B_TRANS_DET +'</td>'+
                             // '</tr>'+
                             '<tr>'+
                                 '<th style="'+ th +' '+ xsr +' '+ pl10 +'">ESTADO:</th>'+
-                                '<td style="'+ td +' '+ xsl +'" colspan="6">'+ estcon +' <br>'+ itcond +''+ valor.V_DISPOSITIVO_LEGAL +'</td>'+
+                                '<td style="'+ td +' '+ xsl +'" colspan="6">'+ estcon +''+ itcond +''+ valor.V_DISPOSITIVO_LEGAL +'</td>'+
                             '</tr>'+
                             // '<tr>'+
                             //     '<th style="'+ th +' '+ xsr +' '+ pl10 +'">FASE:</th>'+
@@ -1187,76 +1207,73 @@ function markerOnClick(id)
                 '</div>'+
             '');
 
-            $('#estadistica_ipa').html('');
-            $('#estadistica_ipa').html(''+
-                '<div id="containercircle" style="width: 550px; height: 280px; margin: 0 auto; text align: center;">'+
-                '</div>'+
-                
-                // '<div id="containergraf" style="width: 550px; height: 400px; margin: 0 auto;">'+
-                // '</div>'+
-            '');
+            // $('#estadistica_ipa').html('');
+            // $('#estadistica_ipa').html(''+
+            //     '<div id="containercircle" style="width: 550px; height: 280px; margin: 0 auto; text align: center;">'+
+            //     '</div>'+
+            // '');
 
-            Highcharts.chart('containercircle', {
-                title: {
-                    text: valor.Infra_Nombre,
-                    align: 'center'
-                },
-                credits: {
-                    enabled: false
-                },
-                xAxis: {
-                    categories: ['']
-                },
-                yAxis: {
-                    title: {
-                    text: ''
-                    }
-                },
-                labels: {
-                    items: [{
-                        html: '',//'<b>% Avance</b>',
-                        style: {
-                            left: '150px',
-                            top: '50px',
-                            color: ( // theme
-                                Highcharts.defaultOptions.title.style &&
-                                Highcharts.defaultOptions.title.style.color
-                            ) || 'black'
-                        }
-                    }]
-                },
-                colors: 
-                    //verde, rojo, ambar, celeste
-                    [colorestado]
-                ,
-                plotOptions: {
-                    pie: {
-                        layout: 'vertical',
-                        align: 'left',
-                        verticalAlign: 'top',
-                        allowPointSelect: false,
-                        cursor: false,
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
-                    }
-                },            
-                series: [{
-                    type: 'pie',
-                    name: '',
-                    innerSize: '50%',
-                    startAngle: 0,
-                    endAngle: 360,
-                    size: 180,
-                    center: [150, 80],
-                    data: [
-                        [textestado,100]
-                    ]
-                }]
-            });
+            // Highcharts.chart('containercircle', {
+            //     title: {
+            //         text: valor.Infra_Nombre,
+            //         align: 'center'
+            //     },
+            //     credits: {
+            //         enabled: false
+            //     },
+            //     xAxis: {
+            //         categories: ['']
+            //     },
+            //     yAxis: {
+            //         title: {
+            //         text: ''
+            //         }
+            //     },
+            //     labels: {
+            //         items: [{
+            //             html: '',//'<b>% Avance</b>',
+            //             style: {
+            //                 left: '150px',
+            //                 top: '50px',
+            //                 color: ( // theme
+            //                     Highcharts.defaultOptions.title.style &&
+            //                     Highcharts.defaultOptions.title.style.color
+            //                 ) || 'black'
+            //             }
+            //         }]
+            //     },
+            //     colors: 
+            //         //verde, rojo, ambar, celeste
+            //         [colorestado]
+            //     ,
+            //     plotOptions: {
+            //         pie: {
+            //             layout: 'vertical',
+            //             align: 'left',
+            //             verticalAlign: 'top',
+            //             allowPointSelect: false,
+            //             cursor: false,
+            //             dataLabels: {
+            //                 enabled: false
+            //             },
+            //             showInLegend: true
+            //         }
+            //     },            
+            //     series: [{
+            //         type: 'pie',
+            //         name: '',
+            //         innerSize: '50%',
+            //         startAngle: 0,
+            //         endAngle: 360,
+            //         size: 180,
+            //         center: [150, 80],
+            //         data: [
+            //             [textestado,100]
+            //         ]
+            //     }]
+            // });
 
-            $('.highcharts-legend').attr('transform','translate(300,80)');
+            // $(Fnuev'.highcharts-legend').attr('transform','translate(300,80)');
             
             $('#multimedia_ipa').html('');
             $('#multimedia_ipa').html(''+

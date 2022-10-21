@@ -22,6 +22,14 @@ class Mapa extends CI_Controller {
         echo $this->load->view('mapa/mapa', $data, true);
 	}
 
+    public function indexdos(){
+        $contador = $this->M_indicador->operacion('buscar_cantidad','');
+        $data['fila'] = $contador;
+        $ipaData = $this->M_mapainteractivo->operacion('todoipashabilitados','','');
+        $data['ipa_data'] = $this->encodeURIComponent(json_encode($ipaData));
+        echo $this->load->view('mapa/mapa2', $data, true);
+	}
+
     public function ipas() {
         $data = $this->M_mapainteractivo->operacion('todoipas','','');
         echo json_encode($data);    

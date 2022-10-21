@@ -131,7 +131,7 @@ $base_url = load_class('Config')->config['base_url'];
                     </table>
                 </div>
             </div>
-            <!-- <div id="div_listahabi" class="listaipas">
+            <div id="div_listahabi" class="listaipas">
                 <div id="div_tablalistahabi" class="table-responsive" style="width: 100%;">
                     <table id="tablalistahabi" class="table-condensed" style="width: 100%;">
                         <thead>
@@ -140,7 +140,7 @@ $base_url = load_class('Config')->config['base_url'];
                         </tbody>
                     </table>
                 </div>
-            </div> -->
+            </div>
             <div id="div_listatra" class="listaipas">
                 <div id="div_tablalistatra" class="table-responsive" style="width: 100%;">
                     <table id="tablalistatra" class="table-condensed" style="width: 100%;">
@@ -181,7 +181,7 @@ $base_url = load_class('Config')->config['base_url'];
                     </table>
                 </div>
             </div>
-            <!-- <div id="div_listanohabi" class="listaipas">
+            <div id="div_listanohabi" class="listaipas">
                 <div id="div_tablalistanohabi" class="table-responsive" style="width: 100%;">
                     <table id="tablalistanohabi" class="table-condensed" style="width: 100%;">
                         <thead>
@@ -190,7 +190,7 @@ $base_url = load_class('Config')->config['base_url'];
                         </tbody>
                     </table>
                 </div>
-            </div> -->
+            </div>
             <div id="div_listanotra" class="listaipas">
                 <div id="div_tablalistanotra" class="table-responsive" style="width: 100%;">
                     <table id="tablalistanotra" class="table-condensed" style="width: 100%;">
@@ -227,14 +227,14 @@ $base_url = load_class('Config')->config['base_url'];
                 <div id="multimedia_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: #d9d9d9; border-radius: 15px;">
                     <label class="control-label" style="text-align: left;">ARCHIVOS MULTIMEDIA</label>
                 </div>
-                <table class="table-condensed" style="margin-left: 5px;">
+                <!-- <table class="table-condensed" style="margin-left: 5px;">
                     <thead>
                         <th style="background-color: #3c8dbc; color: #ffffff; width: 580px; border-radius: 15px 15px 0px 0px; text-align: left; padding: 4px 12px;" colspan="7">ESTADO</th>
                     </thead>
                 </table>
                 <div id="estadistica_ipa" class="validar row col-lg-12" style="margin: 5px; background-color: white; border-radius: 0px 0px 15px 15px;">
                     <label class="control-label" style="text-align: left;">ESTADÍSTICA</label>
-                </div>
+                </div> -->
             </div>
         </div>     
     </div>
